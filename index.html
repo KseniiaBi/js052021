@@ -15,19 +15,19 @@
 
 <script>
 
-	let a = 5; // number up to 2^53-1 + NaN, ±Infinity
-	let b, c, d, e, f, g; // undefined
-	c = 'Hello'; // string
-	d = false; // boolean -> true || false
-	e = null; // появляется либо при ссылке на несуществующий DOM-элемент, либо можно присвоить самим
-	f = Symbol('name'); // symbol
-	g = 999555555777772n; // BigInt from 2^54
+	// let a = 5; // number up to 2^53-1 + NaN, ±Infinity
+	// let b, c, d, e, f, g; // undefined
+	// c = 'Hello'; // string
+	// d = false; // boolean -> true || false
+	// e = null; // появляется либо при ссылке на несуществующий DOM-элемент, либо можно присвоить самим
+	// // f = Symbol('name'); // symbol
+	// g = 999555555777772n; // BigInt from 2^54
 
-	let obj = {
-		name: 'Jane'
-	} // object - структура/тип данных
+	// let obj = {
+	// 	name: 'Jane'
+	// } // object - структура/тип данных
 
-	let arr = [1,2,3]; // Array - массив, структура данных
+	// let arr = [1,2,3]; // Array - массив, структура данных
 
 
 	// математические операторы + - / *  ++ --
@@ -35,79 +35,80 @@
 	// логические операторы  && || ! (и или не)
 
 
-	a = 6;
+	// a = 6;
 
-	const x = 10;
+	// const x = 10;
 	// x = 11; Type Error
 
-	var y = true;
+	// var y = true;
 	// z = 8;
-	y = 7;
+	// y = 7;
 
 
 // alert(y);
 //let z = confirm('Are you sure you want to delete item?'); // true or false depend on button clicked
 //let z = prompt('Type your age', 0);
 
-console.log(typeof(z));
-console.warn('Not alarm');
-console.error('ALARM!!!');
+// console.log(typeof(z));
+// console.warn('Not alarm');
+// console.error('ALARM!!!');
 
 // debugger;
 
-console.log('My ' + 'name '+ 'is');
-console.log(`I am ${x} years old`);
+// console.log('My ' + 'name '+ 'is');
+// console.log(`I am ${x} years old`);
 
 
-let k = '5';
+// let k = '5';
 // let l = +k + 2;
-let l = Number(k) + 2;
+// let l = Number(k) + 2;
 
 
-let n = 6;
-let m = 8;
+// let n = 6;
+// let m = 8;
 
-if(m > n ){
-	console.log('m > n');
-}
-else if(m === n){
-	console.log('m = n');
-}
-else{
-	console.log('m < n');
-}
+// if(m > n ){
+// 	console.log('m > n');
+// }
+// else if(m === n){
+// 	console.log('m = n');
+// }
+// else{
+// 	console.log('m < n');
+// }
 
 
-let day = +prompt('Type daynum 1-7');
+// let day = +prompt('Type daynum 1-7');
 
-switch (day) {
-	case 1: console.log('Mo');
-			break;
-	case 2: console.log('Tue');
-			break;
-	case 3: console.log('Wed');
-			break;
-	case 4: console.log('Thu');
-			break;
-	case 5: console.log('Fri');
-			break;
-	case 6: console.log('Sat');
-			break;
-	case 7: console.log('Sun');
-			break;
-	default: console.log('Not a day');
-			break;
-}
+// switch (day) {
+// 	case 1: console.log('Mo');
+// 			break;
+// 	case 2: console.log('Tue');
+// 			break;
+// 	case 3: console.log('Wed');
+// 			break;
+// 	case 4: console.log('Thu');
+// 			break;
+// 	case 5: console.log('Fri');
+// 			break;
+// 	case 6: console.log('Sat');
+// 			break;
+// 	case 7: console.log('Sun');
+// 			break;
+// 	default: console.log('Not a day');
+// 			break;
+// }
 
-if(m < n && n >=5){
-	console.log('N > 5 and m > n');
-}
+// if(m < n && n >=5){
+// 	console.log('N > 5 and m > n');
+// }
 
-console.warn('Last one for today');
+// console.warn('Last one for today');
 
 
 
 </script>
+<script src="/main.js"></script>
 </body>
 </html>
 
