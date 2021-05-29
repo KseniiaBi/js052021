@@ -86,7 +86,7 @@ console.log("R = "+R+", S = "+S)
 
 let num = 125457;
 let stNum = String(num);
-
+let pr = stNum = prompt("число");
 if (stNum == 0 || stNum == 2 ||stNum == 4 ||stNum == 6 || stnNum == 8 ){
     console.log('Четное');
 } else {
