@@ -7,7 +7,6 @@
 	<!-- по принципу второго мета-тега пишутся все остальные мета-теги -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&family=Roboto:ital,wght@0,700;1,300;1,400&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="main.css">
 
 </head>
 <body>
@@ -15,70 +14,250 @@
 
 <script>
 
-// В переменной month лежит какое-то число из интервала от 1 до 12. Определите в какую пору года попадает этот месяц (зима, лето, весна, осень).
-// 
+	// cycles
 
-
-// 1
-
-let month = +prompt('Type month 1-12');
-
-switch(month){
-	case 12:
-	case 1:
-	case 2: console.log('winter');
-			break;
-	case 3:
-	case 4: 
-	case 5: console.log('spring');
-			break;
-			// аналогично остальные
-	default: console.log('not a month');
-			break;
+for(let i = 0; i <= 5; i++){
+	// тело цикла
+	console.log(i);
 }
 
-// 2 Если переменная test равна true, то выведите на экран слово 'верно', иначе выведите слово 'неверно'.
-
-let test = true;
-if(test){
-	console.log('верно');
+let k = 7;
+while(k>3){
+	console.log(k);
+	k--;
 }
 
-if(!test){ // !test -> test != true
-	console.log('ne верно');
+let l = 10;
+do{
+	console.log(l);
+}
+while(l < 5);
+
+
+// console log:  i 1->50, если число кратно 3 - выводим в консоли вместо числа fizz, 5 - buzz, 3&5 fizzbuzz 
+
+let i = 1;
+while(i<=50){
+	if(i%3 == 0 && i%5 == 0) {
+		console.log('fizzbuzz');
+	}
+	else if(i%5 == 0){
+		console.log('buzz');
+	}
+	else if(i%3 == 0){
+		console.log('fizz');
+	}
+	else{
+		console.log(i);
+	}
+	i++;
 }
 
-// Найдите количество секунд в сутках.
 
-let seconds = 60*60*24;
-console.log(seconds);
-
-
-// Пусть дана переменная r с радиусом круга. По соответствующей формуле найдите площадь круга и запишите ее в переменную s. Выведите содержимое этой переменной на экран.
-
-let r = 10;
-let s = Math.PI * 2 * r;
-
-console.log(s);
+//  Вывести в консоли шахматную доску, в которой темные клетки # и светлые - пробел
+// # # # # 
+//  # # # #
 
 
-// ***Пусть в переменной num хранится число. Определите, четное число или нет. Число будет четным, если последний символ равен 0, 2, 4, 6 или 8, и нечетным в противном случае. (Здесь нужен математический оператор % - остаток от деления)
+let size = 8;
 
-let num = +prompt('Type a num');
+for(let i = 0; i < size; i++ ){ 
+// наружный цикл  выводит строки
+	let str = '';
 
-let result = num%2 == 0 ? 'четное' : 'нечетное';
-console.log(result);
+	for(let j = 0; j < size; j++){ // здесь мы собираем символы в строку
+		if(j%2 == 0 && i%2 == 0 ||  j%2 != 0 && i%2 != 0){
+		// четный символ четной сроки  или нечетный символ нечетной сроки
+			str += '#'; // str = str + '#'
+		}
+		else{
+			str += ' ';
+		}
+	}
+	console.log(str);
+}
 
 
 
-//  тернарный оператор
+for (n = 0; n < 10; n++){
+	if(n === 3 || n === 5){
+		// если н = 3 или 5, не выводить их и перейти к следующей итерации
+		continue; 
+	}
+	console.log(n);
+}
 
-let a = 5;
-let b = 7;
+// let end = +prompt('Type num 0-100');
 
-let c = a > b ? a : b;
+// for (let i = 0; i <= 100; i++){
+// 		console.log(i);
+// 	if(i == end){
+// 		// прервать выполнение цикла, если i == end
+// 		break;
+// 	}
+// }
 
-// if(a>b) ? true : false
+
+
+//  arrays
+
+// массивы - это мутабельная структура данных
+
+let array = new Array(10);
+
+
+let arr = [1,2,3,4,5];
+
+let arr2 = [];
+for(let i = 0; i <= 10; i++){
+	arr2[i] = i;
+}
+
+console.log(arr2);
+
+// проверить, есть ли в массиве число 8
+let res = false;
+for(let i = 0; i < arr.length; i++){
+	if(arr[i] == 8){
+		res = true;
+	}	
+}
+console.log(res);
+//
+
+//  у строк есть длина и индексы - как номера символов
+// строки иммутабельны
+
+let msg = 'Hello World';
+
+console.log(msg[0]);
+
+for(let i = 0; i < msg.length; i++){
+	console.log(msg[i]);
+}
+
+// проверить, что строка заканчивается вопросительным знаком
+
+let str = 'How old are you?';
+console.log(`- ${str}`);
+if(str[str.length-1] == '?'){
+	console.log('- ... [response]');
+}
+else{
+	console.log('- Hello');
+}
+
+
+
+// а что если ? не в конце
+
+let str2 = 'How old are you? Hey!';
+console.log(`- ${str2}`);
+
+let isQuestion = false;
+
+for(let i = 0; i < str2.length; i++){
+	if(str2[i] == '?'){
+		isQuestion = true;
+	}
+}
+
+let resMsg = isQuestion ? `- ... (resp)` : 'Hello';
+
+console.log(resMsg);
+
+
+let arr3 = [22, 43, -12, 77, -55, -1, 0, 88];
+
+// вывести числа меньше нуля
+//  и посчитать сколько их
+
+let count = 0;
+for(let i = 0; i < arr3.length; i++){
+	if(arr3[i] < 0){
+		console.log(arr3[i]);
+		count++;
+	}
+}
+
+console.log(count);
+
+
+// из массива arr3 создать новый только с положительными числами
+let arr5 = [];
+let index = 0;
+
+for(let i = 0; i < arr3.length; i++){
+	if(arr3[i] >= 0){
+
+		arr5[index] = arr3[i];
+		index++;
+	}
+	else{
+		delete arr3[i];
+		// и удалим отрицательное из исходного массива
+	}
+}
+ // arr5 = 0; вместо массива там будет число
+console.log(arr5);
+console.log(arr3);
+
+
+
+
+// посчитать в строке буквы А
+
+let aCount = 0;
+let str3 = 'Loremaaa ipsum dolor sit amet';
+
+let x = 0;
+while(x < str3.length){
+	x++;
+	if(str3[x] == 'a'){
+		aCount++;
+	}
+}
+
+console.log(aCount);
+
+
+// *
+// **
+// *** ... till 5
+
+
+// прямоугольный треугольник
+let str4 = '';
+for(let i = 0; i <=5; i++){
+	str4 += '*';
+	console.log(str4);
+}
+
+// равносторонний треугольник
+
+let lines = 13;
+
+for(let i = 1; i <=lines; i++){
+	let str = '';
+	if(i <= (lines/2)+1){
+		for(let j = 0; j < i; j++){
+			str += '*';
+		}
+	}
+	else{
+		for(let k = lines; k - i >= 0; k--){
+			str += '*';
+		}
+	}
+	console.log(str);
+}
+
+// кому захочется острых ощущений, постройте ромб
+
+
+
+
+
 
 
 </script>
