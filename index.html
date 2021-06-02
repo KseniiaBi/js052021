@@ -9,7 +9,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&family=Roboto:ital,wght@0,700;1,300;1,400&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="main.css">
+  <!-- <link rel="stylesheet" href="main.css"> -->
 
 </head>
 
@@ -18,57 +18,113 @@
 
   <script>
 
-// задание 1 В переменной month лежит какое-то число из интервала от 1 до 12. Определите в какую пору года попадает этот месяц (зима, лето, весна, осень).
-    let month = +prompt('Input month number');
+// // задание 1 В переменной month лежит какое-то число из интервала от 1 до 12. Определите в какую пору года попадает этот месяц (зима, лето, весна, осень).
+//     let month = +prompt('Input month number');
 
-    switch (month) {
-        case 1: console.log('Winter');
-          break;
-        case 2: console.log('Winter');
-          break;
-        case 3: console.log('Spring');
-          break;
-        case 4: console.log('Spring');
-          break;
-        case 5: console.log('Spring');
-          break;
-        case 6: console.log('Sammer');
-          break;
-        case 7: console.log('Sammer');
-          break;
-        case 8: console.log('Sammer');
-          break;
-        case 9: console.log('Autumn');
-          break;
-        case 10: console.log('Autumn');
-          break;
-        case 11: console.log('Autumn');
-          break;
-        case 12: console.log('Winter');
-          break;
-        default: console.log('Not a month');
-          break;
+//     switch (month) {
+//         case 1: console.log('Winter');
+//           break;
+//         case 2: console.log('Winter');
+//           break;
+//         case 3: console.log('Spring');
+//           break;
+//         case 4: console.log('Spring');
+//           break;
+//         case 5: console.log('Spring');
+//           break;
+//         case 6: console.log('Sammer');
+//           break;
+//         case 7: console.log('Sammer');
+//           break;
+//         case 8: console.log('Sammer');
+//           break;
+//         case 9: console.log('Autumn');
+//           break;
+//         case 10: console.log('Autumn');
+//           break;
+//         case 11: console.log('Autumn');
+//           break;
+//         case 12: console.log('Winter');
+//           break;
+//         default: console.log('Not a month');
+//           break;
+//     }
+
+// // задание 2 Если переменная test равна true, то выведите на экран слово 'верно', иначе выведите слово 'неверно'.
+//     let test = true;
+
+//     if(test = true){
+//       console.log('верно');
+//     }
+//     else{
+//       console.log('неверно');
+//     }
+
+// // задание 3 Найдите количество секунд в сутках.
+// let s = 60*60*24;
+
+// console.log(s);
+
+// // задание 4 Пусть дана переменная r с радиусом круга. По соответствующей формуле найдите площадь круга и запишите ее в переменную s. Выведите содержимое этой переменной на экран.
+//     let r = +prompt('Enter the radius of the circle');
+
+//         console.log('Area of ​​the circle:' + (r*r*3.14));
+
+// 02.06.21
+// 1) Выведите столбец четных чисел в промежутке от 0 до 100
+
+    for(i = 0; i <= 100; i++){
+      if(i%2 == 0){
+        console.log(i);
+      }
+    }
+// 2) Дан массив с элементами[1, 2, 3, 4, 5].С помощью цикла for найдите сумму элементов этого массива.Запишите ее в переменную result
+
+    let result = 0;
+    let arr = [1,2,3,4,5];
+    for(i = 0; i < arr.length; i++){
+      result = result + arr[i];
+    }
+    console.log(result);
+// 3) Дан массив с элементами 2, 5, 9, 15, 0, 4. С помощью цикла for и оператора if выведите на экран столбец тех элементов массива, которые больше  3 - х, но меньше  10.
+
+    let arr2 = [2,5,9,15,0,4];
+    for (i = 0; i < arr2.length; i++) {
+        if (arr2[i] > 3 && arr2[i] < 10){
+        console.log(arr2[i]);
+      }
     }
 
-// задание 2 Если переменная test равна true, то выведите на экран слово 'верно', иначе выведите слово 'неверно'.
-    let test = true;
+// 4) Дан массив с числами.Числа могут быть положительными и отрицательными(на свое усмотрение заполните).Найдите сумму положительных элементов массива.
 
-    if(test = true){
-      console.log('верно');
+    let result2 = 0;
+    let arr3 = [2,-5,7,23,-12,0,-1];
+    for (i = 0; i < arr3.length; i++) {
+      if (arr3[i] >= 0) {
+        result2 = result2 + arr3[i];
+      }
     }
-    else{
-      console.log('неверно');
+    console.log(result2);
+// 5) Дан массив с элементами  1, 2, 3, 4, 5, 6, 7, 8, 9. С помощью цикла  for  создайте строку '-1-2-3-4-5-6-7-8-9-'
+    let arr4 = [1,2,3,4,5,6,7,8,9];
+    let str = '';
+    for (i = 0; i < arr4.length; i++) {
+      str += '-'+ arr4[i];
+      }
+    console.log(str + '-');
+
+// 6) Если переменная a больше 2 - х и меньше 11 - ти, или переменная b больше или равна 6 - ти и меньше 14 - ти, то выведите 'Верно', в противном случае выведите 'Неверно'.
+
+  let a = +prompt('Please enter a variable A:');
+  let b = +prompt('Please enter a variable B:');
+    if (a > 2 && a < 11) {
+      console.log('Верно');
+    }else if(b >= 6 && b < 14){
+      console.log('Верно');
+    }else{
+      console.log('Неверно');
     }
 
-// задание 3 Найдите количество секунд в сутках.
-let s = 60*60*24;
-
-console.log(s);
-
-// задание 4 Пусть дана переменная r с радиусом круга. По соответствующей формуле найдите площадь круга и запишите ее в переменную s. Выведите содержимое этой переменной на экран.
-    let r = +prompt('Enter the radius of the circle');
-
-        console.log('Area of ​​the circle:' + (r*r*3.14));
 
 
   </script>
