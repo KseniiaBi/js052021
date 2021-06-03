@@ -73,7 +73,7 @@
 // 02.06.21
 // 1) Выведите столбец четных чисел в промежутке от 0 до 100
 
-    for(i = 0; i <= 100; i++){
+    for(let i = 0; i <= 100; i++){
       if(i%2 == 0){
         console.log(i);
       }
@@ -82,14 +82,14 @@
 
     let result = 0;
     let arr = [1,2,3,4,5];
-    for(i = 0; i < arr.length; i++){
+    for(let i = 0; i < arr.length; i++){
       result = result + arr[i];
     }
     console.log(result);
 // 3) Дан массив с элементами 2, 5, 9, 15, 0, 4. С помощью цикла for и оператора if выведите на экран столбец тех элементов массива, которые больше  3 - х, но меньше  10.
 
     let arr2 = [2,5,9,15,0,4];
-    for (i = 0; i < arr2.length; i++) {
+    for (let i = 0; i < arr2.length; i++) {
         if (arr2[i] > 3 && arr2[i] < 10){
         console.log(arr2[i]);
       }
@@ -99,7 +99,7 @@
 
     let result2 = 0;
     let arr3 = [2,-5,7,23,-12,0,-1];
-    for (i = 0; i < arr3.length; i++) {
+    for (let i = 0; i < arr3.length; i++) {
       if (arr3[i] >= 0) {
         result2 = result2 + arr3[i];
       }
@@ -108,7 +108,7 @@
 // 5) Дан массив с элементами  1, 2, 3, 4, 5, 6, 7, 8, 9. С помощью цикла  for  создайте строку '-1-2-3-4-5-6-7-8-9-'
     let arr4 = [1,2,3,4,5,6,7,8,9];
     let str = '';
-    for (i = 0; i < arr4.length; i++) {
+    for (let i = 0; i < arr4.length; i++) {
       str += '-'+ arr4[i];
       }
     console.log(str + '-');
@@ -125,7 +125,30 @@
       console.log('Неверно');
     }
 
+// Ромб
 
+  let lines = 11;
+  for (let i = 1; i <= lines; i++) {
+    let str = '';
+    if (i <= (lines / 2) + 1) {
+
+      for (let z = lines; z - i >= 0; z--) {
+        str += ' ';
+      }
+      for (let j = 0; j < i; j++) {
+        str += '* ';
+      }
+    }
+    else {
+      for (let x = 0; x < i; x++) {
+        str += ' ';
+      }
+      for (let k = lines; k - i >= 0; k--) {
+        str += '* ';
+      }
+    }
+    console.log(str);
+  }
 
   </script>
 </body>
