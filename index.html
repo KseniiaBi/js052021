@@ -14,110 +14,48 @@
 
 
 <script>
+	// Выведите столбец четных чисел в промежутке от 0 до 100
+	for (let i=0; i<=100; i++){
+		if(i%2==0)
+			console.log(i);
+	}
+	// Дан массив с элементами [1, 2, 3, 4, 5]. С помощью цикла for найдите сумму элементов этого массива.
+	// Запишите ее в переменную result
+	let arr = [1, 2, 3, 4, 5];
+	let result = 0;
+	for(let i = 0; i < arr.length; i++){
+		result = result + arr[i];
+	}
+	console.log(result);
+	// Дан массив с элементами 2, 5, 9, 15, 0, 4. С помощью цикла for
+	// и оператора if выведите на экран столбец тех элементов массива, которые больше  3-х, но меньше  10.
+    let arr2 = [2, 5, 9, 15, 0, 4];
+    for(let i = 0; i< arr2.length; i++){
+    	if (arr2[i]>3 && arr2[i]<10) {
+			console.log(arr2[i]);
+		}
+	}
+	// Дан массив с числами. Числа могут быть положительными и отрицательными (на свое усмотрение заполните).
+	// Найдите сумму положительных элементов массива.
+	let arr3 = [5, 9, 15, -29, -7];
+    let result2 = 0
+	for (let i = 0; i < arr3.length; i++) {
+		if (arr3[i] > 0) {
+			result2 = result2 + arr3[i];
+		}
+	}
+	console.log(result2);
+	// Дан массив с элементами  1, 2, 3, 4, 5, 6, 7, 8, 9.
+	// С помощью цикла  for  создайте строку '-1-2-3-4-5-6-7-8-9-'
 
-	let a = 5; // number up to 2^53-1 + NaN, ±Infinity
-	let b, c, d, e, f, g; // undefined
-	c = 'Hello'; // string
-	d = false; // boolean -> true || false
-	e = null; // появляется либо при ссылке на несуществующий DOM-элемент, либо можно присвоить самим
-	f = Symbol('name'); // symbol
-	g = 999555555777772n; // BigInt from 2^54
-
-	let obj = {
-		name: 'Jane'
-	} // object - структура/тип данных
-
-	let arr = [1,2,3]; // Array - массив, структура данных
-
-
-	// математические операторы + - / *  ++ --
-	// операторы сравнения > < >= <= == === != !==
-	// логические операторы  && || ! (и или не)
-
-
-	a = 6;
-
-	const x = 10;
-	// x = 11; Type Error
-
-	var y = true;
-	// z = 8;
-	y = 7;
-
-
-// alert(y);
-//let z = confirm('Are you sure you want to delete item?'); // true or false depend on button clicked
-//let z = prompt('Type your age', 0);
-
-console.log(typeof(z));
-console.warn('Not alarm');
-console.error('ALARM!!!');
-
-// debugger;
-
-console.log('My ' + 'name '+ 'is');
-console.log(`I am ${x} years old`);
-
-
-let k = '5';
-// let l = +k + 2;
-let l = Number(k) + 2;
-
-
-let n = 6;
-let m = 8;
-
-if(m > n ){
-	console.log('m > n');
-}
-else if(m === n){
-	console.log('m = n');
-}
-else{
-	console.log('m < n');
-}
-
-
-let day = +prompt('Type daynum 1-7');
-
-switch (day) {
-	case 1: console.log('Mo');
-			break;
-	case 2: console.log('Tue');
-			break;
-	case 3: console.log('Wed');
-			break;
-	case 4: console.log('Thu');
-			break;
-	case 5: console.log('Fri');
-			break;
-	case 6: console.log('Sat');
-			break;
-	case 7: console.log('Sun');
-			break;
-	default: console.log('Not a day');
-			break;
-}
-
-if(m < n && n >=5){
-	console.log('N > 5 and m > n');
-}
-
-console.warn('Last one for today');
-
+	let arr4 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+	let str = '';
+	for(let i = 0; i<arr4.length; i++){
+		str += '-' + arr4[i];
+	}
+	console.log(str + '-');
 
 
 </script>
 </body>
 </html>
-
-
-<!-- 
-
-https://learn.javascript.ru/
-http://code.mu/ru/javascript/book/prime/
-https://developer.mozilla.org/en-US/docs/Web/JavaScript
-https://codernet.ru/books/js/vyrazitelnyj_javascript_2-e_izdanie/
-книги по JS O'Reilly
-
- -->
