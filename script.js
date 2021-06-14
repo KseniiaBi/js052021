@@ -1,49 +1,38 @@
-//Задание 1
-for (let num = 0; num < 100; num++) {
-    if (num % 2 == 0) {
-        console.log(num);
-    }
+let x = 1;
+for (let x = 1; x < 10; x++) {
+    console.log('Таблица умножения на ' + x)
+    for(let y = 1; y < 10; y++) {
+        console.log(`${x}*${y} = ${x * y}`);
+    } 
 }
 
-//Задание 2
-let arr = [1, 2, 3, 4, 5];
-let result = 0;
+let day = function (dayweek) {
+    switch (dayweek) {
+        case 1: return 'Monday';
+        case 2: return 'Tuesday';
+        case 3: return 'Wednesday';
+        case 4: return 'Thursday';
+        case 5: return 'Friday';
+        case 6: return 'Saturday';
+        case 7: return 'Sunday';
+    }
+    
+}
+console.log(day(1));
+
+let arr = [10, 20, 30, 50, 235, 3000];
+let n = arr.length;
 for (let i = 0; i < arr.length; i++) {
-    result += arr [i];
-}
-console.log(result);
-
-// Задание 3
-let array = [2, 5, 9, 15, 0, 4];
-for (let i = 0; i < array.length; i++) {
-    if (array [i] > 3 && array [i] < 10)
-    console.log(array [i]);
-} 
- 
-//Задание 4
-let arra = [5, 8, 10, -12, -100, 90];
-let res = 0;
-for (let i = 0; i < arra.length; i++) {
-    if  (arra[i] >= 0) {
-        res += arra[i]
+    str = arr[i] + '';
+    if (str[0] === '1' || str[0] === '2' || str[0] === '5') {
+        console.log(arr[i] + ', ');
     }
-} console.log(res);
-
-//Задание 5 
-let ar = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-let str = '';
-for (let i = 0; i < ar.length; i++) {
-    str = str + '-' + ar[i];
-}
-console.log(str);
-
-//Задание 6
-let a = 5;
-let b = 6;
-if (a > 2, a < 11, b >=6, b < 14) {
-    console.log('True')
-}
-else { 
-    console.log('False')
+    
 }
 
+let ar = [3, 6, 9, 13, 15, 23, 30, 31, 33];
+ for (let i = 0; i < ar.length; i++) {
+    if (i[0] % 3 == 0) {
+        console.log(i[0]);
+    }
+ }
