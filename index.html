@@ -15,205 +15,143 @@
 <script>
 
 // functions 
+// function declaration and var's are hoisted to top
 
-// ЗАДАЧИ 
-// 1.	Выведите на экран таблицу умножения (как в школьной тетради). 
-// 	2.	Сделайте функцию, которая принимает параметром число от 1 до 7, а возвращает день недели. 
-// 	3.	Дан массив числами, например: [10, 20, 30, 50, 235, 3000]. Выведите на экран только те числа из массива, которые начинаются на цифру 1, 2 или 5.
-// 	4.	 Дан массив с числами. Создайте из него новый массив, где останутся лежать только числа, которые кратны 3. Создайте для этого вспомогательную функцию.
+// foo();
+// function foo(){
+// 	console.log(111);
+// }
 
-function dividesAtThree(n){
-	return n%3 == 0;
+// boo();
+// console.log(a);
+// var a = 10;
+// var boo = function(){
+// 	console.log(a);
+// }
+
+// hoisting
+
+
+// var - область видимости - функция, let - {}
+
+var a = 10;
+
+function foo(){
+	var a = 5;
+	console.log(a);
 }
+foo();
+console.log(a);
 
-function filterArrThrees(a){
-	let newArr = [];
-	let index = 0;
-
-	for(let i = 0; i < a.length; i++){
-		if(dividesAtThree(a[i])){
-			newArr[index] = a[i];
-			index++;
-		}
+function boo(){
+	let b = 4;
+	if(3){
+		b = 67;
 	}
-	return newArr;
+	console.log(b);
 }
 
-console.log(filterArrThrees([33,12,4,5,7,66, 24, 9, 11]));
+let b = 10;
+boo();
+console.log(b);
 
-// 	5.	Создайте массив arr = ['a', 'b', 'c', 'd'] и с его помощью выведите на экран строку 'a+b, c+d'.
 
-function printArr(ar){
-	let str = '';
-	for (let i = 0; i < ar.length; i++){
-		if(i%2 == 0){
-			str += `${ar[i]}+${ar[i+1]}`;
-			if(i < ar.length - 2){
-				str += ', ';
-			}
-		}
-	}
 
-	console.log(str);
+// closures
+
+let name = 'Masha';
+
+function sayHi(){
+	// Lexical Enviroment {phrase = undefined}
+	var phrase = `Hi, ${name} `;
+	// Lexical Enviroment {phrase = 'Hi, Masha(z.b.)'}
+	console.log(phrase);
 }
 
-printArr(['a', 'b', 'c', 'd']);
-printArr(['a', 'b', 'c', 'd','a', 'b', 'c', 'd']);
+sayHi();
 
-// 	6.	Создайте массив arr с элементами 2, 5, 3, 9. Умножьте первый элемент массива на второй, а третий элемент на четвертый. Результаты сложите, присвойте переменной  result. Выведите на экран значение этой переменной.
+name = 'Pasha';
 
-//  решать аналогично предыдущей - двумя способами (простой для только 4х значений и длинный, как выше)
-
-
-// 	7.	Напишите функцию, которая принимает через prompt параметры a,b,c, выводит в консоли квадратное уравнение с ними и считает его корни 
-
-function sq(){
-
-	let a = +prompt('Type a, not 0, 1');
-	let b = +prompt('Type b, 1');
-	let c = +prompt('Type c, 1');
-
-	if(!isNaN(a) && !isNaN(b) && !isNaN(c)){
-
-		console.log(`${a}x^2 + ${b}x + ${c}`);
-
-		let d = b*b - (4 * a * c);
-
-		if(d > 0){
-			let x1 = (-b - Math.sqrt(d)) / 2*a;
-			let x2 = (-b + Math.sqrt(d)) / 2*a;
-
-			console.log(`рівняння має два коренi: x1 = ${x1}, x2 = ${x2}`);
-		}
-
-		else if(d == 0){
-			let x = -b / (2*a);
-			console.log(`рівняння має єдиний корінь: x = ${x} `);
-		}
-
-		else {
-			console.log('дане рівняння не має дійсних коренів');
-		}
-	}
-}
-
-// sq();
+sayHi();
 
 
-// 	8.	Сделайте функцию, которая возвращает н-ное число фибоначчи, ряд начинайте с 1
-
-
-function fib(n){
-	let a = 1;
-	let b = 1;	
-	let c;
-
-	for(let i = 3; i<= n;i++){
-		c = a + b;
-		a = b;
-		b = c;
-	}
-
-	console.log(c);
-}
-
-fib(11);
-
-
-
-// 	9.	Решите задачу про мудреца и шахматы. https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0_%D0%BE_%D0%B7%D1%91%D1%80%D0%BD%D0%B0%D1%85_%D0%BD%D0%B0_%D1%88%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D0%BE%D0%B9_%D0%B4%D0%BE%D1%81%D0%BA%D0%B5  Зная количество зерен, посчитать сумму в денежном эквиваленте, на которую “прилип” шейх. Учитывайте, что одно зерно весит 1 аррузу (0,019 г)
-
-// 	10.	Дан массив с числами. [2,3,1,4,8,6,7,5,9] Не используя метода reverse переверните его элементы в обратном порядке. 
-
-function reverse(arr){
-	let newArr = [];
-	for(let i = 0; i < arr.length; i++){
-		newArr[i] = arr[arr.length - i - 1];
-	}
-	return newArr;
-}
-
-console.log(reverse([2,3,1,4,8,6,7,5,9]));
-
-// 	11.	Дан массив с числами. Выведите последовательно его элементы используя рекурсию и не используя цикл. 
-
-function printArrElems(arr, i){
-	if(i < arr.length){
-		console.log(arr[i]);
-		printArrElems(arr, ++i);
-	}
-}
-
-printArrElems([2,3,1,4,8,6,7,5,9], 0);
-
-
-// 	12.	Дано число  n=1000. Делите его на  2  столько раз, пока результат деления не станет меньше 50. Какое число получится? Посчитайте количество итераций, необходимых для этого (итерация - это проход цикла), и запишите его в переменную num. 
-
-function counter(n){
+function makeCounter(){
 	let count = 0;
-	while(n >= 50){
-		n = n/2;
-		count++;
+
+	return function(){
+		console.log(++count);
 	}
-
-	console.log(`count = ${count}, n = ${n}`);
 }
 
-counter(1000);
+let counter = makeCounter();
 
-function counter2(n){
-	let count = 0;
-	let i;
-	for(i = n; i >= 50; i = i/2 ){
-		count++;
+counter();
+counter();
+counter();
+
+let counter2 = makeCounter();
+
+
+counter2();
+counter2();
+counter2();
+
+
+counter();
+counter();
+counter();
+
+counter2();
+counter2();
+counter2();
+
+
+//  чистая функция - та, которая не меняет ничего в своем окружении 
+
+let x = 10;
+
+function mul(){
+	x = x * 2; //- это не чистая функция, потому что она меняет значение переменной за ее пределами
+}
+
+function mulClean(){
+	return x*2; // чистая функция. она вернула результат, который можно записать в любую другую переменную
+}
+
+console.log(mulClean());
+console.log(x);
+
+function hello(){
+	console.log('Hello');
+}
+
+hello();
+
+
+let colors = [ 'red', 'orange', 'yellow', 'green',  'blue', 'violet'];
+
+let makeColors = function(){
+	let num = 0;
+	return function(){
+		console.log(colors[num]);
+		num = num < colors.length-1 ? ++num : 0;
 	}
-	console.log(`count = ${count}, n = ${i}`);
-
 }
 
-counter2(1000);
+let rainbow = makeColors();
+rainbow();
+rainbow();
+rainbow();
+rainbow();
+rainbow();
+rainbow();
+rainbow();
+rainbow();
+rainbow();
 
+let randNum = Math.floor(Math.random()*(70 - 30)+30);
 
-// 	13.	Если переменная a равна или меньше 1, а переменная b больше или равна 3, то выведите сумму этих переменных, иначе выведите их разность (результат вычитания). Проверьте работу скрипта при aи b, равном 1 и 3, 0 и 6, 3 и 5.
-
-function calc(a,b){
-	// let result;
-	// if(a <=1 && b >= 3){
-	// 	result = a + b;
-	// }
-	// else{
-	// 	result = a - b;
-	// }
-
-	let result = (a <=1 && b >= 3) ? a+b : a-b;
-
-	console.log(result);
-}
-
-calc(1,3);
-calc(0,6);
-calc(3, 5);
-
-
-// 	14.	Напишите методы для умножения, вычитания и деления целых чисел, используя из арифметических операций только оператор суммирования. 
-// 	15.	В книге N страниц, пронумерованных как обычно от 1 до N. Если сложить количество цифр, содержащихся в каждом номере страницы, будет 1095. Сколько страниц в книге?
-
-function bookPages(total){
-	let result = 0;
-	let pagenum = 1;
-
-	while(result <=total){
-		pagenum++;
-		result += pagenum.toString().length;
-	}
-
-	console.log(pagenum);
-}
-
-
-bookPages(1095);
-
-
+console.log(randNum);
 
 
 </script>
