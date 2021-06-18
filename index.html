@@ -1,59 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>JS FE</title> 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1"> 
-	<!-- по принципу второго мета-тега пишутся все остальные мета-теги -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&family=Roboto:ital,wght@0,700;1,300;1,400&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="main.css">
+    <title>JS FE</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <!-- по принципу второго мета-тега пишутся все остальные мета-теги -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&family=Roboto:ital,wght@0,700;1,300;1,400&display=swap"
+          rel="stylesheet">
+
 
 </head>
 <body>
 
 
 <script>
-	// Выведите столбец четных чисел в промежутке от 0 до 100
-	for (let i=0; i<=100; i++){
-		if(i%2==0)
-			console.log(i);
-	}
-	// Дан массив с элементами [1, 2, 3, 4, 5]. С помощью цикла for найдите сумму элементов этого массива.
-	// Запишите ее в переменную result
-	let arr = [1, 2, 3, 4, 5];
-	let result = 0;
-	for(let i = 0; i < arr.length; i++){
-		result = result + arr[i];
-	}
-	console.log(result);
-	// Дан массив с элементами 2, 5, 9, 15, 0, 4. С помощью цикла for
-	// и оператора if выведите на экран столбец тех элементов массива, которые больше  3-х, но меньше  10.
-    let arr2 = [2, 5, 9, 15, 0, 4];
-    for(let i = 0; i< arr2.length; i++){
-    	if (arr2[i]>3 && arr2[i]<10) {
-			console.log(arr2[i]);
-		}
-	}
-	// Дан массив с числами. Числа могут быть положительными и отрицательными (на свое усмотрение заполните).
-	// Найдите сумму положительных элементов массива.
-	let arr3 = [5, 9, 15, -29, -7];
-    let result2 = 0
-	for (let i = 0; i < arr3.length; i++) {
-		if (arr3[i] > 0) {
-			result2 = result2 + arr3[i];
-		}
-	}
-	console.log(result2);
-	// Дан массив с элементами  1, 2, 3, 4, 5, 6, 7, 8, 9.
-	// С помощью цикла  for  создайте строку '-1-2-3-4-5-6-7-8-9-'
+    // Сделайте функцию, которая принимает параметром число от 1 до 7, а возвращает день недели.
+    let result = '0';
+    for (let i = 0; i <=10; i++) {
+        for (let j = 0; j <= 10; j++) {
+            if (i == 0 && j > 0) {
+                result += '[' + j + ']';
+            } else if (j == 0 && i > 0) {
+                result += '[' + i + '] ';
+            } else if (i > 0 && j > 0) {
+                result += (i * j) + ' ';
+            }
+        }
+        result += '\n'
+    }
 
-	let arr4 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-	let str = '';
-	for(let i = 0; i<arr4.length; i++){
-		str += '-' + arr4[i];
-	}
-	console.log(str + '-');
+    console.log(result);
+
+
+    // Сделайте функцию, которая принимает параметром число от 1 до 7, а возвращает день недели.
+    let Day = function (day){
+        switch (day) {
+            case 1:
+                return "Mo";
+                break;
+            case 2:
+                return 'Tue';
+                break;
+            case 3:
+                return 'Wed';
+                break;
+            case 4:
+                return 'Thu';
+                break;
+            case 5:
+                return 'Fri';
+                break;
+            case 6:
+                return 'Sat';
+                break;
+            case 7:
+                return 'Sun';
+                break;
+            default:
+                return 'Not a day';
+                break;
+        }
+    }
+    console.log(Day(2))
+    // Дан массив числами, например: [10, 20, 30, 50, 235, 3000]. Выведите на экран только те числа из массива, которые начинаются на цифру 1, 2 или 5.
+    let arr = [10, 20, 30, 50, 235, 3000];
+    for (let i = 0; i < arr.length; i++) {
+        if (String(arr[i]).startsWith("1") || String(arr[i]).startsWith("2") || String(arr[i]).startsWith("5")) {
+        console.log (arr[i]);
+        }
+    }
+    //random к задаче про цвета массива
+    let colors = [ 'red', 'orange', 'yellow', 'green',  'blue', 'violet'];
+
+    function randColors(){
+        let result = 0;
+        for(let i = 0; i < colors.length; i++){
+            result = Math.floor(Math.random()*(6 - 0) + 0)
+        }
+        console.log(colors[result]);
+    }
+        randColors();
+
+//    В книге N страниц, пронумерованных как обычно от 1 до N. Если сложить сумму цифр( 10 = 1+0; 11= 1+1), содержащихся в каждом номере страницы, будет 1095. Сколько страниц в книге?
+// function bookPages(total){
+//     let result = 0;
+//     let pagenum = 1;
+//
+//     while(result <=total){
+//         pagenum++;
+//         result += pagenum.toString().length;
+//     }
+//     console.log(pagenum);
+//     }
+//
+//     bookPages(1095);
+//
+//     function sumDigits(num){
+//         let result = 0;
+//         num = num.toString();
+//         for(let digit of num){
+//             result += +digit;
+//         }
+//             return result;
+//     }
+//     console.log(sumDigits(98));
 
 
 </script>
