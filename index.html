@@ -14,144 +14,58 @@
 
 <script>
 
-// functions 
-// function declaration and var's are hoisted to top
+	// 1) 
 
-// foo();
-// function foo(){
-// 	console.log(111);
-// }
+	function countRice(){
+		let count = Math.pow(2, 63) +1;
+		const arruza = 0.0000019; //kg
+		const price = 30;
+		let weight = count*arruza;
+		let result = price*weight;
 
-// boo();
-// console.log(a);
-// var a = 10;
-// var boo = function(){
-// 	console.log(a);
-// }
-
-// hoisting
-
-
-// var - область видимости - функция, let - {}
-
-var a = 10;
-
-function foo(){
-	var a = 5;
-	console.log(a);
-}
-foo();
-console.log(a);
-
-function boo(){
-	let b = 4;
-	if(3){
-		b = 67;
+		console.log(result);
 	}
-	console.log(b);
-}
 
-let b = 10;
-boo();
-console.log(b);
+	countRice();
 
+	// 2
 
+	function countPages(total){
+		let pagenum = 0;
+		let pagesum = 0;
 
-// closures
-
-let name = 'Masha';
-
-function sayHi(){
-	// Lexical Enviroment {phrase = undefined}
-	var phrase = `Hi, ${name} `;
-	// Lexical Enviroment {phrase = 'Hi, Masha(z.b.)'}
-	console.log(phrase);
-}
-
-sayHi();
-
-name = 'Pasha';
-
-sayHi();
-
-
-function makeCounter(){
-	let count = 0;
-
-	return function(){
-		console.log(++count);
+		while(pagesum< total){
+			pagenum++;
+			let current = pagenum.toString();
+			for(let char of current){
+				pagesum += +char;
+			}
+		}
+		console.log(`pagesum: ${pagesum}, pagenum: ${pagenum}`);
 	}
-}
 
-let counter = makeCounter();
+	countPages(1095);
 
-counter();
-counter();
-counter();
+	// 3 
 
-let counter2 = makeCounter();
+	let colors = ['red', 'blue', 'green', 'magenta', 'white', 'black'];
 
+	function makeColors(){
+		let index = 0;
 
-counter2();
-counter2();
-counter2();
-
-
-counter();
-counter();
-counter();
-
-counter2();
-counter2();
-counter2();
-
-
-//  чистая функция - та, которая не меняет ничего в своем окружении 
-
-let x = 10;
-
-function mul(){
-	x = x * 2; //- это не чистая функция, потому что она меняет значение переменной за ее пределами
-}
-
-function mulClean(){
-	return x*2; // чистая функция. она вернула результат, который можно записать в любую другую переменную
-}
-
-console.log(mulClean());
-console.log(x);
-
-function hello(){
-	console.log('Hello');
-}
-
-hello();
-
-
-let colors = [ 'red', 'orange', 'yellow', 'green',  'blue', 'violet'];
-
-let makeColors = function(){
-	let num = 0;
-	return function(){
-		console.log(colors[num]);
-		num = num < colors.length-1 ? ++num : 0;
+		return function(){
+			index = Math.floor(Math.random()*(colors.length-1));
+			console.log(colors[index]);
+		}
 	}
-}
 
-let rainbow = makeColors();
-rainbow();
-rainbow();
-rainbow();
-rainbow();
-rainbow();
-rainbow();
-rainbow();
-rainbow();
-rainbow();
+	let rainbow = makeColors();
 
-let randNum = Math.floor(Math.random()*(70 - 30)+30);
-
-console.log(randNum);
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
+	rainbow();
 
 
 </script>
