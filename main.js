@@ -1,52 +1,84 @@
+// 1) напишите функцию pluck, которая берет массив объектов и возвращает массив значений определенного поля:
 
-// grains посчитал стоимость в гривне за кг пшена
-
-
- function grains(){
-     let res = 1;
-     for(let i = 1; i <= 64; i++){
-         res = (Math.pow(2,i))
-     }
-     return res
- }
-
-
-console.log(grains())
-
-
- function money(){
-     let res = 0;
-     res = (grains() * 0.0000019)*5
-     return res
- }
- console.log(money())
+// var characters = [
+//   { 'name': 'barney', 'age': 36 },
+//   { 'name': 'fred', 'age': 40 }
+// ];
 
 
 
+//add comma to obj
+var characters = [
+   { 'name': 'barney', 'age': 36 },
+   { 'name': 'fred', 'age': 40 }
+];
 
+function pluck(array, feature){
+    let array1 = [];
+    for(let res of array){
+        array1 += res[feature];
 
-
-//color random
-
-
-let colors = [ 'red', 'orange', 'yellow', 'green',  'blue', 'indigo', 'violet'];
-
-function rainbow(){
-    let res = 0;
-    for(let i = 0; i < colors.length; i++){
-        res = Math.floor(Math.random()*(7 - 0) + 0)
     }
-    console.log(colors[res])
+    return array1;
 }
-rainbow()
+
+console.log(pluck(characters, 'age'))
 
 
 
-//book pages  
-//В книге N страниц, пронумерованных как обычно от 1 до N. 
-//Если сложить сумму цифр( 10 = 1+0б 11= 1+1), 
-//содержащихся в каждом номере страницы, будет 1095. 
-//Сколько страниц в книге?
+// 2) Напиши функцию, считающую число свойств в объекте:
+var a = { a: 1, b: 2 };
+    
+    function count(x){
+        let res = 0;
+        for(let item in x){
+            res++
+        }
+        return res;
+    }
+
+console.log(count(a)); // 2
+
+
+var b = function (x) {
+
+};
+console.log(count(b)); // 0
 
 
 
+//question on the last two
+// var c = [1, 2, 3];
+// console.log(count(c)); // 3
+
+// var d = [];
+// d[100] = 1;
+// console.log(count(d)); // 1
+
+
+
+
+//3) Напишите скрипт, который присваивает переменной d значение 7, 
+// а затем выводит на экран обьект со следующими свойствами: 
+// в первой строке - это значение, во второй строке - квадрат этого значения, 
+// в третьей строке - куб этого значения.
+
+
+
+
+
+
+let d = 7;
+let obj = {
+};
+
+function multi(){
+    let res1 = d*d;
+    let res2 = d*d*d;
+
+    obj.x2=res1;
+    obj.x3=res2;
+
+    console.log(obj);
+}
+multi()
