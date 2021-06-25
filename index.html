@@ -14,60 +14,21 @@
 
 <script>
 
-	// 1) 
+var characters = [
+   { 'name': 'barney', 'age': 36 },
+   { 'name': 'fred', 'age': 40 }
+];
 
-	function countRice(){
-		let count = Math.pow(2, 63) +1;
-		const arruza = 0.0000019; //kg
-		const price = 30;
-		let weight = count*arruza;
-		let result = price*weight;
+function pluck(array, feature){
+    let array1 = [];
+    for(let res of array){
+        array1 += res[feature];
 
-		console.log(result);
-	}
+    }
+    return array1;
+}
 
-	countRice();
-
-	// 2
-
-	function countPages(total){
-		let pagenum = 0;
-		let pagesum = 0;
-
-		while(pagesum< total){
-			pagenum++;
-			let current = pagenum.toString();
-			for(let char of current){
-				pagesum += +char;
-			}
-		}
-		console.log(`pagesum: ${pagesum}, pagenum: ${pagenum}`);
-	}
-
-	countPages(1095);
-
-	// 3 
-
-	let colors = ['red', 'blue', 'green', 'magenta', 'white', 'black'];
-
-	function makeColors(){
-		let index = 0;
-
-		return function(){
-			index = Math.floor(Math.random()*(colors.length-1));
-			console.log(colors[index]);
-		}
-	}
-
-	let rainbow = makeColors();
-
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-	rainbow();
-
-
+console.log(pluck(characters, 'age'))
 </script>
 </body>
 </html>
