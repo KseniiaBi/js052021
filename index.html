@@ -18,68 +18,41 @@
 
   <script>
 
-  // 1) Задача про мудреца
+  // 1. Дан массив[1, 2, 3].Добавьте ему в конец элементы 4, 5, 6.
 
-  function rice(price){
-    let count = 1;
-    for(let i = 1; i < 64; i++){
-      count = count + (count * 2);
-    }
-    let summ = 0;
-    summ = ((count * 0.019) / 1000000) * price;
-    summ = Math.round(summ)/1000000;
-    console.log(`Стоимость риса = ${summ} млн грн`);
-  }
-  rice(18500);
+  let arr1 = [1, 2, 3];
+  console.log('Дано: ' + arr1);
+  console.log ('Итог: ' + arr1.push(4, 5, 6));
 
-  // 2) В книге N страниц, пронумерованных как обычно от 1 до N.Если сложить сумму цифр(10 = 1 + 0б 11 = 1 + 1), содержащихся в каждом номере страницы, будет 1095. Сколько страниц в книге ?
+  // 2. Дан массив[1, 2, 3].Добавьте ему в начало элементы 4, 5, 6.
 
+  let arr2 = [1, 2, 3];
+  console.log('Дано: ' + arr2);
+  console.log('Итог: ' + arr2.unshift(4, 5, 6));
 
-  function bookPages(total){
-    let result = 0;
-    let pagenum = 1;
-    while(result < total){
-      pagenum++;
-      num = String(pagenum);
-      let i = 0;
-      let x = num.length;
-      function res(x){
-        result += nam[i];
-        i++;
-      }
-      return result;
-      res();
-    }
-    console.log(result);
+  // 3. Дан массив['js', 'css', 'jq'].Выведите на экран первый элемент.
+  let arrweb = ['js', 'css', 'jq'];
+  console.log(arrweb[0]);
+  // 4. Дан массив['js', 'css', 'jq'].Выведите на экран последний элемент.
+  let arrweb2 = ['js', 'css', 'jq'];
+  console.log(arrweb2[arrweb2.length - 1]);
 
-    console.log(pagenum);
-    }
-   bookPages(1095);
+  // 5. Дан массив[1, 2, 3, 4, 5].С помощью метода slice запишите в новый элементы[1, 2, 3].
+  let num = [1, 2, 3, 4, 5];
+  console.log(num.slice(0, 3));
+  // 6. Дан массив[1, 2, 3, 4, 5].С помощью метода slice запишите в новый элементы[4, 5].
+  let numb = [1, 2, 3, 4, 5];
+  console.log(numb.slice(3));
 
-  // 3)** random дописать к задаче про цвета массива
+  // 7. Дан массив[1, 2, 3, 4, 5].С помощью метода splice преобразуйте массив в[1, 4, 5].
+  console.log(num.splice(1, 2));
+  // 8. Используйте метод reduce в комбинации с concat для свёртки массива массивов в один массив, у которого есть все элементы входных массивов.
+  
+  // 9. var arrays = [[1, 2, 3], [4, 5], [6]];
+  // // Ваш код
+  // // → [1, 2, 3, 4, 5, 6]
 
-  let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'violet'];
-
-    let makeColors = function () {
-      let num = 0;
-      return function () {
-        console.log(colors[num]);
-        num = Math.random() * (6 - 1) + 1 < colors.length - 1 ? ++num : 0;
-      }
-    }
-
-    let rainbow = makeColors();
-    rainbow();
-    rainbow();
-    rainbow();
-    rainbow();
-    rainbow();
-    rainbow();
-    rainbow();
-    rainbow();
-    rainbow();
-
-  // задачи к этой главе https://learn.javascript.ru/var
+  // 10. Дан массив[3, 4, 1, 2, 7].Отсортируйте его не используя метод sort.Предпочтительный метод сортировки - пузырьком.                           
 
   </script>
 </body>
