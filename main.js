@@ -1,84 +1,98 @@
-// 1) напишите функцию pluck, которая берет массив объектов и возвращает массив значений определенного поля:
-
-// var characters = [
-//   { 'name': 'barney', 'age': 36 },
-//   { 'name': 'fred', 'age': 40 }
-// ];
+// Дан массив [1, 2, 3]. Добавьте ему в конец элементы 4, 5, 6.
 
 
-
-//add comma to obj
-var characters = [
-   { 'name': 'barney', 'age': 36 },
-   { 'name': 'fred', 'age': 40 }
-];
-
-function pluck(array, feature){
-    let array1 = [];
-    for(let res of array){
-        array1 += res[feature];
-
-    }
-    return array1;
-}
-
-console.log(pluck(characters, 'age'))
+let arr = [1,2,3];
+arr.push(4,5,6);
+console.log(arr);
 
 
 
-// 2) Напиши функцию, считающую число свойств в объекте:
-var a = { a: 1, b: 2 };
+// Дан массив [1, 2, 3]. Добавьте ему в начало элементы 4, 5, 6.
+
+
+let arr1 = [1,2,3];
+arr1.unshift(4, 5, 6);
+console.log(arr1);
+
+
+
+// Дан массив ['js', 'css', 'jq']. Выведите на экран первый элемент. 
+
+
+let arr2 = ['js', 'css', 'jq'];
+let res = arr2.shift();
+console.log(res);
+
+
+
+// Дан массив ['js', 'css', 'jq']. Выведите на экран последний элемент.
+
+
+let arr3 = ['js', 'css', 'jq'];
+let res1 = arr3.pop();
+console.log(res1);
+
+
+
+// Дан массив [1, 2, 3, 4, 5]. 
+//С помощью метода slice запишите в новый элементы [1, 2, 3]. 
+
+
+let arr4 = [1,2,3,4,5];
+console.log(arr4.slice(0, 3));
+
+
+
+// Дан массив [1, 2, 3, 4, 5]. 
+// С помощью метода slice запишите в новый элементы [4, 5].
+
+
+let arr5 = [1,2,3,4,5];
+console.log(arr5.slice(3));
+
+
+
+// Дан массив [1, 2, 3, 4, 5]. 
+// С помощью метода splice преобразуйте массив в [1, 4, 5].
+
+
+let arr6 = [1,2,3,4,5];
+arr6.splice(1,2);
+console.log(arr6);
+
+
+
+//Используйте метод reduce в комбинации с concat для свёртки массива 
+//массивов в один массив, у которого есть все элементы входных массивов.
+//var arrays = [[1, 2, 3], [4, 5], [6]]; 
+// Ваш код
+// → [1, 2, 3, 4, 5, 6]
+
+
+let arrays = [[1, 2, 3], [4, 5], [6]];
+let resArr = arrays.reduce((acc, val) => acc.concat(val), [])
+console.log(resArr)
     
-    function count(x){
-        let res = 0;
-        for(let item in x){
-            res++
+
+
+// Дан массив [3, 4, 1, 2, 7]. Отсортируйте его не используя метод sort. 
+// Предпочтительный метод сортировки - пузырьком.
+
+
+
+let bub = [3, 4, 1, 2, 7]
+
+function bubble(arr){
+    for(let j = 0; j < arr.length; j++){
+        for(let i = 0; i < arr.length - 1; i++){
+            if(arr[i] > arr[i+1]){
+               let buff = arr[i];
+               arr[i] = arr[i+1];
+               arr[i+1] = buff; 
+            }
         }
-        return res;
     }
-
-console.log(count(a)); // 2
-
-
-var b = function (x) {
-
-};
-console.log(count(b)); // 0
-
-
-
-//question on the last two
-// var c = [1, 2, 3];
-// console.log(count(c)); // 3
-
-// var d = [];
-// d[100] = 1;
-// console.log(count(d)); // 1
-
-
-
-
-//3) Напишите скрипт, который присваивает переменной d значение 7, 
-// а затем выводит на экран обьект со следующими свойствами: 
-// в первой строке - это значение, во второй строке - квадрат этого значения, 
-// в третьей строке - куб этого значения.
-
-
-
-
-
-
-let d = 7;
-let obj = {
-};
-
-function multi(){
-    let res1 = d*d;
-    let res2 = d*d*d;
-
-    obj.x2=res1;
-    obj.x3=res2;
-
-    console.log(obj);
+    console.log(arr)
 }
-multi()
+
+bubble(bub)
