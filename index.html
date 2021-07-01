@@ -10,264 +10,77 @@
 
 </head>
 <body>
+	<script>
 
+// Дан массив [1, 2, 3]. Добавьте ему в конец элементы 4, 5, 6. 
+let Arr = [1, 2, 3];
+let mass = Arr.push (4, 5, 6);
+console.log(Arr);
 
-<script>
+//  Дан массив [1, 2, 3]. Добавьте ему в начало элементы 4, 5, 6. 
 
-// functions!
+let array = [1, 2, 3];
+let NewArry = array.unshift(4, 5, 6);
+console.log(array);
+// Дан массив ['js', 'css', 'jq']. Выведите на экран первый элемент. 
 
-let username = 'John';
+let prog = ['js', 'css', 'jq'];
+console.log(prog.shift());
 
-// Function Declaration - обьявление функции
-function greeting(){
-	console.log(`Hello ${username}`);
+//  Дан массив ['js', 'css', 'jq']. Выведите на экран последний элемент. 
+
+let arr2 = ['js', 'css', 'jq'];
+console.log(arr2.pop());
+ 
+// Дан массив [1, 2, 3, 4, 5]. С помощью метода slice запишите в новый элементы [1, 2, 3].
+//  Дан массив [1, 2, 3, 4, 5]. С помощью метода slice запишите в новый элементы [4, 5]. 
+
+let Ar2 = [1, 2, 3, 4, 5];
+let newElement = Ar2.slice(0, 3);
+console.log(newElement);
+
+let newElement2 = Ar2.slice(3, 5);
+console.log(newElement2);
+ 
+// Дан массив [1, 2, 3, 4, 5]. С помощью метода splice преобразуйте массив в [1, 4, 5].
+
+let masiv = [1, 2, 3, 4, 5];
+let mass2 = masiv.splice(1,2,);
+console.log(masiv);
+
+// Используйте метод reduce в комбинации с concat для свёртки массива массивов в один массив, у которого есть все элементы входных массивов.
+
+let Arr3 = [[1,2], [3,4], [5,6]];
+let show = Arr3.reduce(function sdwh(a, b) {
+	return a.concat(b);
+
+})
+console.log(show);
+
+// var arrays = [[1, 2, 3], [4, 5], [6]]; 
+// // Ваш код
+// // → [1, 2, 3, 4, 5, 6]
+var arrays = [[1, 2, 3], [4, 5], [6]]; 
+let All = arrays.reduce((a,b) => a.concat(b));
+console.log(All); 
+
+// Дан массив [3, 4, 1, 2, 7]. Отсортируйте его не используя метод sort. Предпочтительный метод сортировки - пузырьком. 
+
+let ArrAy = [3, 4, 1, 2, 7];
+function bubleSort(arr) {
+  for (let j = arr.length - 1; j > 0; j--) {
+    for (let i = 0; i < j; i++) {
+      if (arr[i] > arr[i + 1]) {
+        let element = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = element;
+      }
+    }
+  }
+console.log(arr);
 }
+bubleSort(ArrAy);
 
-a = 10;
-
-greeting();
-
-username = 'Jane';
-
-greeting();
-
-// Function Expression - функциональное выражение 
-
-let sum = function(a,b){ // в скобках - аргументы (входящие параметры) функции
-	let result = a+b;
-	console.log(result);
-}
-
-sum();
-sum(3,4);
-sum(3,4, 6);
-
-function updSum(){
-	let result = 0;
-	for(let num of arguments){ // arguments - псевдомассив, который хранит в себе все аргументы, которые принимает функция при ее каждом вызове
-		result += num;
-	}
-	console.log(result);
-}
-
-updSum(2,3);
-updSum(2);
-updSum(2,3,5,6,7,8);
-
-function pow(a){
-	return a*a;
-}
-
-console.log(pow(2));
-
-console.log(sum(2,3));
-
-let x = pow(4); // x = результат выполнения функции
-console.log(x);
-
-
-// callback functions - функции обратного вызова (сделай что-то2, когда что-то1 выполнится)
-
-// setTimeout(function(){}, time in ms);
-
-// setTimeout(function(){
-// 	// anonymous function inside setTimeout
-// 	console.log('We 🖤 JS');
-// }, 1000);
-
-
-function deleteItem(conf, decl){
-	confirm('Are you sure?') ? conf() : decl();
-}
-
-function confirmation(){
-	console.log('Item was deleted');	
-}
-function decline(){
-	console.log('Item was not deleted');	
-}
-
-//deleteItem(confirmation, decline);
-
-
-// recursive function - рекурсивная - вызывает сама себя - ОБЯЗАТЕЛЬНО НУЖНО УКАЗАТЬ УСЛОВИЕ ВЫХОДА ИЛИ ПОВТОРЕНИЯ
-
-// factorial !5 = 1*2*3*4*5;
-
-function fact(n){
-	let res = 1;
-	for(let i = 1; i <= n; i++){
-		res *= i;
-	}
-	console.log(res);
-}
-fact(3);
-
-function factorial(n){
-	if(n > 1){
-		return n * factorial(n-1);
-	}
-	else{
-		return n;
-	}	
-}
-
-console.log(factorial(3));
-
-// setTimeout(greeting, 2000);
-
-// anonymous self-calling function - анонимная самовызывающаяся 
-
-(function(){
-	console.log('Здесь могла бы быть ваша реклама!');
-})();
-
-// первая пара () - обертка для выражения, которое мы вызываем второй парой ()
-
-// arrow functions - стрелочные функции (лямбда-выражения)
-
-let minus = (a,b) => a - b;
-
-// аналогично этой записи, потому что однострочные стрелочные функции сразу возвращают свой результат
-
-// let minus = (a,b) => {
-// 	return a - b;
-// тут может быть много строк в стрелочной функции
-// }
-
-console.log(minus(5,3));
-
-
-let login = user => console.log(`${user} logged in`);
-login('Masha');
-
-//  если у нас всего один аргумент в стрелочной функции, его можно указывать не в ()
-// стрелочные ф-ции не имеют псевдомассива argumrnts
-
-
-// ф-я, которая будет считать кол-во повторений какой-то буквы в строке
-
-function countLetter(str, letter){
-	let count = 0;
-	for(let char of str){
-		if(char == letter){
-			count++;
-		}
-	}
-	return count;
-}
-
-console.log(countLetter('Bubble', 'b'));
-console.log(countLetter('bubble', 'b'));
-
-
-// a+b-c
-
-function calc(a,b,c){
-	return a+b-c;
-}
-
-console.log(calc(12,3,5));
-
-// суммировать цифры внутри числа, пока результат не будет < 9
-
-function sumDigits(num){
-	let result = 0;
-	num = num.toString(); // String(num)
-	for(let digit of num){
-		result += +digit;
-	}
-	//  альтернативная запись ниже
-	// for(let i = 0; i < num.length; i++){
-	// 	result += +num[i];
-	// }
-	if(result > 9){
-		return sumDigits(result);
-	}
-	else{
-		return result;
-	}
-}
-
-console.log(sumDigits(98765));
-
-
-//  найти сумму элементов многомерного массива 
-
-let arr = [[1,2, [3,4, [5,6]]], 7, [8, [9, [10, 11, [12, 13, 14, [15]]]]]];
-
-
-function sumArr(a){
-	let res = 0;
-	for(let i = 0; i < a.length; i++){
-		if(a[i].length > 0){
-			res += sumArr(a[i]);
-		}
-		else {
-			res += a[i];
-		}
-	}
-	return res;
-}
-
-console.log(sumArr(arr));
-
-function sumAsLine(a){
-	a = a.toString();
-	a = a.split(',');// вот тут обратно вернуть в массив
-	let result = 0;
-	for(let num of a){
-		result += +num;
-	}
-	return result;
-}
-
-console.log(sumAsLine(arr));
-
-
-//   sum of arr elems
-
-let arr2 = [1,4,2,-12, 0, 9, -54, 6, 9, -32];
-
-function isPositive(n){
-	return n > 0;
-}
-
-function sumArrPositive(a){
-	let result = 0;
-	for (let i = 0; i < a.length; i++ ){
-		if(isPositive(a[i])){
-			result += a[i];
-		}
-	}
-	console.log(result);
-}
-sumArrPositive(arr2);
-
-
-// function 3 in 0->1000
-
-function hasThree(a){
-	a = a.toString();
-	for(let char of a){
-		if(char === '3'){
-			return true;
-		}
-	}
-}
-
-function findThrees(){
-	let count = 0;
-	for(let i = 0; i < 1000; i++){
-		if(hasThree(i)){
-			count++;
-		}
-	}
-	console.log(count);
-}
-findThrees();
-
-
-</script>
+	</script>
 </body>
 </html>
