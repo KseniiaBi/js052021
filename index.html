@@ -17,21 +17,285 @@
 
 // Array methods
 
-let user = {
-	name: 'Ivan',
-	greet() {
-		console.log(`Hello, my name is ${this.name}`);
+// concat 
+
+let fruits = ['orange', 'mango', 'apple', 'pear'];
+let veggies = ['tomato', 'pepper', 'pumpkin', 'cucumber',  'avocado'];
+
+let food = fruits.concat(veggies);
+console.log(food);
+
+// entries returns 0,item0 1, item1 ... n, itemN где entries = key + value
+
+//  every
+
+function checkAllPositive(ar){
+	return ar.every((item) => item > 0);
+}
+
+let a1 = [1,2,3,4,5];
+let a2 = [1,-2,3,4,5];
+
+console.log(checkAllPositive(a1));
+console.log(checkAllPositive(a2));
+
+// filter
+
+let positive = item => item > 0;
+
+let posA1 = a1.filter(positive);
+let posA2 = a2.filter(positive);
+
+console.log(posA1);
+console.log(posA2);
+
+// find - returns VALUE of 1t occur or undefined
+
+let longVeggie = veggies.find(veggie => veggie.length >=7);
+console.log(longVeggie);
+
+// findIndex - returns Index or undefined
+
+let longVeggie2 = veggies.findIndex(veggie => veggie.length >=7);
+console.log(longVeggie2);
+
+// forEach не изменяет исходный массив
+
+fruits.forEach(item => console.log(item));
+
+a2.forEach(num => console.log(num*2));
+
+// from calls on Array - Array.from(сюда обьект/строку ...)
+
+// includes - > returns true or false
+
+console.log(fruits.includes('banana'));
+
+// indexOf  returns index or -1
+console.log(veggies.indexOf('avocado'));
+
+// isArray calls on Array - Array.isArray(сюда обьект/строку ...)
+
+let user = {};
+console.log(Array.isArray(user));
+console.log(Array.isArray(fruits));
+
+// join - returns string with predefined separator
+
+console.log(a1.join('wat'));
+console.log(a1.join('wat') + 'wat');
+
+
+// lastIndexOf - находит первый с конца элемент, который прошел проверку
+
+// map returns a new Arr
+
+let arrr = a2.map(num => num*num);
+
+console.log(arrr);
+
+// pop - removes last el and returns it
+
+// push - adds new el to the end and returns new arr.length
+
+// shift - removes last el and returns it
+
+// unshift - adds new el to the end and returns new arr.length
+
+// reduce - сворачивает массив в одно значение
+
+let newAr = a1.reduce((total, num) => total + num);
+console.log(newAr);
+
+//  reduceRight
+
+let a4 = a1.reduceRight((total, num) => total - num);
+console.log(a4);
+
+let a5 = a1.reduce((total, num) => total - num);
+console.log(a5);
+
+
+// reverse - разворачивает массив задом-наперед
+
+// slice - returns New Array from specified positions (*start, *end) - * необязательные
+
+let foodCopy = food.slice(2);
+
+// splice модифицирует исходный массив
+
+foodCopy.splice(1,0, 'melon');
+console.log(foodCopy);
+
+// some
+
+console.log(a1.some(num => num <0));
+console.log(a2.some(num => num <0));
+
+//  sort  - изменяет исходный массив
+
+console.log(foodCopy.sort());
+
+console.log(a2.sort());
+
+let a6 = a1.slice();
+a6.sort(function(a,b){
+	if(a > b){
+		return -1;
+	}
+	else if(a < b){
+		return 1;
+	}
+	else {
+		return 0;
+	}
+});
+console.log(a6);
+
+
+
+//  задачи
+
+let names = [];
+
+let o1 = {
+	name: 'Julie',
+	age: 17
+}
+
+let o2 = {
+	name: 'Zoe',
+	age: 20
+}
+
+let o3 = {
+	name: 'Ann',
+	age: 40
+}
+
+names.push(o1,o2,o3);
+
+
+function sortNamesAZ(a){
+	let clone = a.slice();
+	clone.sort(azHelper);
+	console.log(clone);
+}
+
+function azHelper(a,b){
+	if(a.name > b.name){
+		return 1;
+	}
+	else if(a.name < b.name){
+		return -1;
+	}
+	else {
+		return 0;
 	}
 }
 
-user.greet();
+sortNamesAZ(names);
 
-let admin = {
-	name: 'admin',
-	sayHi: user.greet
+function sortAgesAsc(a){
+	let clone = a.slice();
+	clone.sort(ascHelper);
+	console.log(clone);
 }
 
-admin.sayHi();
+function ascHelper(a,b){
+	if(a.age > b.age){
+		return 1;
+	}
+	else if(a.age < b.age){
+		return -1;
+	}
+	else {
+		return 0;
+	}
+}
+
+sortAgesAsc(names);
+
+
+// рекурсией вывести элементы массива от последнего до первого в консоль
+
+let arr = [1,2,3,4,5,6,7,8,9];
+
+function printArr(a){
+	if(a.length > 0){
+		console.log(a.pop());
+		printArr(a);
+	}
+}
+
+printArr(arr);
+
+
+// создать массив из 99 случайных чисел в диапазоне от 1 до 100 и определить какое число не попало в массив
+
+
+function randomArr(){
+	let arr = [];
+	let i = 0; // ради интереса считаем за сколько итераций справились
+	while(arr.length < 99){ // простой  for до 99 не подойдет, нужна длина массива
+		let num = Math.floor(Math.random()*100); // создаем рандомное число
+			i++;
+		if(!arr.includes(num)){ // проверяем, есть ли уже такое в массиве
+			arr.push(num); // если нет, то добавляем
+		}
+	}
+
+	let total = 0;
+	for(let k = 1; k < 100; k++){
+		total += k; // считаем сумму всех целых чисел в диапазоне от 1 до 100
+	}
+
+	let arrSum = arr.reduce((sum, num) => sum + num); //  считаем сумму чисел в массиве
+	let diff = total - arrSum; // получаем пропущенное число, как разницу
+
+	console.log(`iter: ${i}, number: ${diff}`);
+	console.log(arr.sort(function(a,b){ // чтобы проверить себя, сортируем массив
+		if(a > b){
+			return 1;
+		}
+		else if(a < b){
+			return -1;
+		}
+		else{
+			return 0;
+		}
+	}));
+
+
+}
+
+randomArr();
+
+
+//  если все 100 чисел рандомные, выведем массив тех, которые не встречаются ни разу
+
+
+function randomArr2(){
+	let arr = [];
+
+	while(arr.length < 99){ // простой  for до 99 не подойдет, нужна длина массива
+		let num = Math.floor(Math.random()*100); // создаем рандомное число
+		arr.push(num);
+	}
+
+	let arr2 = [];
+
+	for(let i = 1; i < 100; i++){
+		if(!arr.includes(i)){
+			arr2.push(i);
+		}
+	}
+
+	console.log(arr);
+	console.log(arr2);
+}
+
+randomArr2();
 
 
 </script>
