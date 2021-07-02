@@ -15,97 +15,51 @@
 
 
 <script>
-    // Сделайте функцию, которая принимает параметром число от 1 до 7, а возвращает день недели.
-    let result = '0';
-    for (let i = 0; i <=10; i++) {
-        for (let j = 0; j <= 10; j++) {
-            if (i == 0 && j > 0) {
-                result += '[' + j + ']';
-            } else if (j == 0 && i > 0) {
-                result += '[' + i + '] ';
-            } else if (i > 0 && j > 0) {
-                result += (i * j) + ' ';
-            }
-        }
-        result += '\n'
-    }
+    // Дан массив [1, 2, 3]. Добавьте ему в конец элементы 4, 5, 6.
 
-    console.log(result);
+    let arr = [1,2,3];
+    arr.push (4,5,6);
+    console.log (arr);
 
+    // Дан массив [1, 2, 3]. Добавьте ему в начало элементы 4, 5, 6.
 
-    // Сделайте функцию, которая принимает параметром число от 1 до 7, а возвращает день недели.
-    let Day = function (day){
-        switch (day) {
-            case 1:
-                return "Mo";
-                break;
-            case 2:
-                return 'Tue';
-                break;
-            case 3:
-                return 'Wed';
-                break;
-            case 4:
-                return 'Thu';
-                break;
-            case 5:
-                return 'Fri';
-                break;
-            case 6:
-                return 'Sat';
-                break;
-            case 7:
-                return 'Sun';
-                break;
-            default:
-                return 'Not a day';
-                break;
-        }
-    }
-    console.log(Day(2))
-    // Дан массив числами, например: [10, 20, 30, 50, 235, 3000]. Выведите на экран только те числа из массива, которые начинаются на цифру 1, 2 или 5.
-    let arr = [10, 20, 30, 50, 235, 3000];
-    for (let i = 0; i < arr.length; i++) {
-        if (String(arr[i]).startsWith("1") || String(arr[i]).startsWith("2") || String(arr[i]).startsWith("5")) {
-        console.log (arr[i]);
-        }
-    }
-    //random к задаче про цвета массива
-    let colors = [ 'red', 'orange', 'yellow', 'green',  'blue', 'violet'];
+    let arr2 = [1,2,3];
+    arr2.unshift(4,5,6);
+    console.log (arr2);
 
-    function randColors(){
-        let result = 0;
-        for(let i = 0; i < colors.length; i++){
-            result = Math.floor(Math.random()*(6 - 0) + 0)
-        }
-        console.log(colors[result]);
-    }
-        randColors();
+    // Дан массив ['js', 'css', 'jq']. Выведите на экран первый элемент.
 
-//    В книге N страниц, пронумерованных как обычно от 1 до N. Если сложить сумму цифр( 10 = 1+0; 11= 1+1), содержащихся в каждом номере страницы, будет 1095. Сколько страниц в книге?
-// function bookPages(total){
-//     let result = 0;
-//     let pagenum = 1;
-//
-//     while(result <=total){
-//         pagenum++;
-//         result += pagenum.toString().length;
-//     }
-//     console.log(pagenum);
-//     }
-//
-//     bookPages(1095);
-//
-//     function sumDigits(num){
-//         let result = 0;
-//         num = num.toString();
-//         for(let digit of num){
-//             result += +digit;
-//         }
-//             return result;
-//     }
-//     console.log(sumDigits(98));
+    let arr3 = ['js', 'css', 'jq'];
+    console.log (arr3.shift());
 
+    // Дан массив ['js', 'css', 'jq']. Выведите на экран последний элемент.
+
+    let arr4 = ['js', 'css', 'jq'];
+    console.log (arr4.pop());
+
+    // Дан массив [1, 2, 3, 4, 5]. С помощью метода slice запишите в новый элементы [1, 2, 3].
+
+    let arr5 = [1,2,3,4,5];
+    console.log (arr5.slice(0,3));
+
+    // Дан массив [1, 2, 3, 4, 5]. С помощью метода slice запишите в новый элементы [4, 5].
+
+    let arr6 = [1,2,3,4,5];
+    console.log (arr6.slice(3));
+
+    // Дан массив [1, 2, 3, 4, 5]. С помощью метода splice преобразуйте массив в [1, 4, 5].
+
+    let arr7 = [1, 2, 3, 4, 5];
+    arr7.splice(1,2);
+    console.log (arr7);
+
+    // Используйте метод reduce в комбинации с concat для свёртки массива массивов в один массив, у которого есть все элементы входных массивов.
+
+    var arrays = [[1, 2, 3], [4, 5], [6]];
+    let res = arrays.reduce((num, item) => {
+        return num.concat(item);
+    });
+    console.log (res);
 
 </script>
 </body>
