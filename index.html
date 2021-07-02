@@ -15,19 +15,174 @@
 <script>
 
 
-let arr = [3, 4, 1, 2, 7];
+// string methods
 
-for(let j = arr.length - 1; j>0; j--){
-	for(let i = 0; i < arr.length - j; i++){
-		if(arr[i] > arr[i+1]){
-			let max = arr[i];
-			arr[i] = arr[i+1];
-			arr[i+1] = max;
+//charAt()
+
+let s = 'Hello';
+
+for(let i = 0; i < s.length; i++){
+	console.log(s.charAt(i));
+}
+
+//charCodeAt()
+
+for(let i = 0; i < s.length; i++){
+	console.log(s.charCodeAt(i));
+}
+
+
+// fromCharCode()
+
+var res = String.fromCharCode(111);
+console.log(res);
+
+
+// includes
+
+console.log(s.includes('ll'));
+
+
+// indexOf()
+
+console.log(s.indexOf('l'));
+
+console.log(s.lastIndexOf('l'));
+
+
+// match 
+
+console.log(s.match(/l/g));
+
+// replace()
+
+let s2 = s.replace(/l/g, 'd');
+console.log(s2);
+
+
+// search, в отличие от indexOf, осуществляет поиск втч по регулярным выражениям
+
+// slice(начало, конец[не включая])
+
+// split
+
+let arr = ('Hello dear guest').split(' ');
+let arr2 = ('Hello dear guest').split('');
+console.log(arr);
+console.log(arr2);
+
+// substr(начало, сколько букв)
+
+//  substring(начало, конец[не включая]), но можно менять местами и указывать аргумент <0
+
+
+//  trim
+
+let s3 = '	GGgg gdbgfb   fff   	';
+console.log(s3.trim());
+
+
+// trimEnd, trimStart, normalize, padEnd, padStart, at
+
+
+// 1) посчитать количетво совпадений определенной буквы в строке
+
+function countLetter(s,l){
+	let num = 0;
+	for(let i = 0; i < s.length; i++){
+		if(s.charAt(i) == l ){
+			num++;
 		}
+	}
+	console.log(num);
+}
+
+countLetter('Hello', 'l');
+
+function countLetter2(s,l){
+	let result = s.includes(l) ? 0 : false;
+
+	if(result == 0){
+		for(let i = 0; i < s.length; i++){
+			if(s.charAt(i) == l ){
+				result++;
+			}
+		}
+		console.log(result);
 	}
 }
 
-console.log(arr);
+countLetter2('Hello', 'l');
+countLetter2('Hello', 'd');
+
+
+// typewriter-like effect
+
+function typewrite(str, target, arr){
+	console.log(str);
+	arr.forEach(item => console.log(str.replace(target, item)));
+}
+
+typewrite('Start new day', 'day', ['coffee', 'project', 'book']);
+
+
+function isAnagram(st1, st2){
+	let res = false;
+	if(st1.length === st2.length){
+		let a1 = st1.split('');
+		let a2 = st2.split('');
+
+		a1.sort();
+		a2.sort();
+
+		let s1 = a1.toString();
+		let s2 = a2.toString();
+
+		result = s1 == s2;
+	}
+	return result;
+}
+
+console.log(isAnagram('камыш', 'мышка'));
+console.log(isAnagram('мама', 'лама'));
+console.log(isAnagram('мама', 'лампа'));
+
+
+// border-left-color -> borderLeftColor
+
+function camelize(str){
+
+	let arr = str.split('-');
+	let newstr = arr[0];
+
+	for(let i = 1; i< arr.length; i++){
+		newstr += arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+	}
+	console.log(newstr);
+}
+
+camelize('border-left-color');
+
+function camelize2(str){
+	let newstr = str.replace(/\-[a-z]/g, function(x, i){
+		return str.charAt(i+1).toUpperCase();
+	});
+	console.log(newstr);
+}
+
+camelize2('border-left-color');
+
+
+// 
+
+let arr3 = [1,2,3,4,5];
+
+function double(a){
+	return a.map((item) => item*2);
+}
+
+console.log(double(arr3));
+
 
 
 </script>
