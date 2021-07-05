@@ -15,173 +15,93 @@
 <script>
 
 
-// string methods
+// 1) пользователь может заливать файлы с расширениями только jpg png. Если он залил правильный файл - вывести сообщение об успехе, если нет - об ошибке
 
-//charAt()
-
-let s = 'Hello';
-
-for(let i = 0; i < s.length; i++){
-	console.log(s.charAt(i));
-}
-
-//charCodeAt()
-
-for(let i = 0; i < s.length; i++){
-	console.log(s.charCodeAt(i));
-}
-
-
-// fromCharCode()
-
-var res = String.fromCharCode(111);
-console.log(res);
-
-
-// includes
-
-console.log(s.includes('ll'));
-
-
-// indexOf()
-
-console.log(s.indexOf('l'));
-
-console.log(s.lastIndexOf('l'));
-
-
-// match 
-
-console.log(s.match(/l/g));
-
-// replace()
-
-let s2 = s.replace(/l/g, 'd');
-console.log(s2);
-
-
-// search, в отличие от indexOf, осуществляет поиск втч по регулярным выражениям
-
-// slice(начало, конец[не включая])
-
-// split
-
-let arr = ('Hello dear guest').split(' ');
-let arr2 = ('Hello dear guest').split('');
-console.log(arr);
-console.log(arr2);
-
-// substr(начало, сколько букв)
-
-//  substring(начало, конец[не включая]), но можно менять местами и указывать аргумент <0
-
-
-//  trim
-
-let s3 = '	GGgg gdbgfb   fff   	';
-console.log(s3.trim());
-
-
-// trimEnd, trimStart, normalize, padEnd, padStart, at
-
-
-// 1) посчитать количетво совпадений определенной буквы в строке
-
-function countLetter(s,l){
-	let num = 0;
-	for(let i = 0; i < s.length; i++){
-		if(s.charAt(i) == l ){
-			num++;
-		}
+function fileUpload(filename){
+	msg = '';
+	if(filename.endsWith('.jpg') || filename.endsWith('.png')){
+		msg = 'Success!';
 	}
-	console.log(num);
+	else{
+		msg ='Failure!';
+	}
+	console.log(msg);
 }
 
-countLetter('Hello', 'l');
+fileUpload('pic.jpg');
+fileUpload('pic.png');
+fileUpload('pic.cr2');
 
-function countLetter2(s,l){
-	let result = s.includes(l) ? 0 : false;
 
-	if(result == 0){
-		for(let i = 0; i < s.length; i++){
-			if(s.charAt(i) == l ){
-				result++;
+// 2) страница может быть размещена на хостинге и начинаться с http или https. вне зависимости от этого ссылка в меню должна получать класс  active
+
+// startsWith()
+
+// 3) функция принимает параметром две строки, сравнить сколько букв в этих словах повторяются и в каком количестве. вывести как обьект
+
+function findMatches(w1, w2){
+	let obj = {};
+
+	for(let i = 0; i < w1.length; i++){
+
+			if(w2.includes(w1.charAt(i))){
+				if(!obj[w1.charAt(i)]){
+					let regex = new RegExp(w1.charAt(i), 'g');
+					obj[w1.charAt(i)] = w2.match(regex);
+				}
 			}
+
+	}
+	console.log(obj);
+}
+
+findMatches('bubble', 'troubble');
+
+
+// 4)Дана строка из 3-х цифр. Найдите сумму этих цифр. То есть сложите как числа первый 
+// символ строки, второй и третий.
+
+// split vs charAt
+ 
+//   5)Дана строка из 6-ти цифр. Проверьте, что сумма первых трех цифр равняется сумме 
+// вторых трех цифр. Если это так - выведите 'да', в противном случае выведите 
+// 'нет'.
+
+// 6) в массиве есть обьекты с товарами, у них может быть свойство "акция". вывести в консоль только те товары, у которых она есть
+
+let goods = [
+	{
+		name: 'Coffeemachine',
+		price: 12000,
+		promo: '-30% off'
+	},
+	{
+		name: 'Fridge',
+		price: 15000,
+		promo: 'none'
+	},
+	{
+		name: 'TV',
+		price: 35000,
+		promo: 'Daily deal'
+	},
+	{
+		name: 'Sneakers',
+		price: 1500,
+		promo: 'none'
+	}
+];
+
+function printPromoted(arr){
+	goods.forEach(function(item){
+		if(item['promo'] && item.promo != 'none'){
+			console.log(item);
 		}
-		console.log(result);
-	}
-}
-
-countLetter2('Hello', 'l');
-countLetter2('Hello', 'd');
-
-
-// typewriter-like effect
-
-function typewrite(str, target, arr){
-	console.log(str);
-	arr.forEach(item => console.log(str.replace(target, item)));
-}
-
-typewrite('Start new day', 'day', ['coffee', 'project', 'book']);
-
-
-function isAnagram(st1, st2){
-	let res = false;
-	if(st1.length === st2.length){
-		let a1 = st1.split('');
-		let a2 = st2.split('');
-
-		a1.sort();
-		a2.sort();
-
-		let s1 = a1.toString();
-		let s2 = a2.toString();
-
-		result = s1 == s2;
-	}
-	return result;
-}
-
-console.log(isAnagram('камыш', 'мышка'));
-console.log(isAnagram('мама', 'лама'));
-console.log(isAnagram('мама', 'лампа'));
-
-
-// border-left-color -> borderLeftColor
-
-function camelize(str){
-
-	let arr = str.split('-');
-	let newstr = arr[0];
-
-	for(let i = 1; i< arr.length; i++){
-		newstr += arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-	}
-	console.log(newstr);
-}
-
-camelize('border-left-color');
-
-function camelize2(str){
-	let newstr = str.replace(/\-[a-z]/g, function(x, i){
-		return str.charAt(i+1).toUpperCase();
 	});
-	console.log(newstr);
 }
 
-camelize2('border-left-color');
+printPromoted(goods);
 
-
-// 
-
-let arr3 = [1,2,3,4,5];
-
-function double(a){
-	return a.map((item) => item*2);
-}
-
-console.log(double(arr3));
 
 
 
