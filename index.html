@@ -14,93 +14,175 @@
 
 <script>
 
-
-// 1) пользователь может заливать файлы с расширениями только jpg png. Если он залил правильный файл - вывести сообщение об успехе, если нет - об ошибке
-
-function fileUpload(filename){
-	msg = '';
-	if(filename.endsWith('.jpg') || filename.endsWith('.png')){
-		msg = 'Success!';
+//  optional chaining with ?.
+let user = {
+	name: 'Jane',
+	adress: {
+		city: 'LA',
+		street: '5th av.'
 	}
-	else{
-		msg ='Failure!';
-	}
-	console.log(msg);
 }
 
-fileUpload('pic.jpg');
-fileUpload('pic.png');
-fileUpload('pic.cr2');
+let admin = null;
+
+console.log(user.adress.city);
+console.log(user.adress.home);
+// console.log(user.parents.home); // cannot read home of undef
+
+console.log(user.parents?.home);
+console.log(admin?.parents?.home);
 
 
-// 2) страница может быть размещена на хостинге и начинаться с http или https. вне зависимости от этого ссылка в меню должна получать класс  active
+// можно читать и удалять свойства, но нельзя записать
 
-// startsWith()
 
-// 3) функция принимает параметром две строки, сравнить сколько букв в этих словах повторяются и в каком количестве. вывести как обьект
 
-function findMatches(w1, w2){
-	let obj = {};
+// Symbols
 
-	for(let i = 0; i < w1.length; i++){
 
-			if(w2.includes(w1.charAt(i))){
-				if(!obj[w1.charAt(i)]){
-					let regex = new RegExp(w1.charAt(i), 'g');
-					obj[w1.charAt(i)] = w2.match(regex);
-				}
-			}
+let id = Symbol('id');
+console.log(id);
 
-	}
-	console.log(obj);
+let id2 = Symbol('id');
+console.log(id2);
+
+console.log(id === id2);
+
+
+let obj = {
+	name: 'Peter',
+	[id]: 94384387439
 }
 
-findMatches('bubble', 'troubble');
 
-
-// 4)Дана строка из 3-х цифр. Найдите сумму этих цифр. То есть сложите как числа первый 
-// символ строки, второй и третий.
-
-// split vs charAt
- 
-//   5)Дана строка из 6-ти цифр. Проверьте, что сумма первых трех цифр равняется сумме 
-// вторых трех цифр. Если это так - выведите 'да', в противном случае выведите 
-// 'нет'.
-
-// 6) в массиве есть обьекты с товарами, у них может быть свойство "акция". вывести в консоль только те товары, у которых она есть
-
-let goods = [
-	{
-		name: 'Coffeemachine',
-		price: 12000,
-		promo: '-30% off'
-	},
-	{
-		name: 'Fridge',
-		price: 15000,
-		promo: 'none'
-	},
-	{
-		name: 'TV',
-		price: 35000,
-		promo: 'Daily deal'
-	},
-	{
-		name: 'Sneakers',
-		price: 1500,
-		promo: 'none'
-	}
-];
-
-function printPromoted(arr){
-	goods.forEach(function(item){
-		if(item['promo'] && item.promo != 'none'){
-			console.log(item);
-		}
-	});
+for(let prop in obj){
+	console.log(`${prop}: ${obj[prop]}`);
 }
 
-printPromoted(goods);
+console.log(obj[id]);
+
+
+let clone = Object.assign({}, obj);
+let steril =  Object.create(null); // coздали совсем чистый объект без методов и свойств
+
+console.log(clone);
+console.log(clone.toString);
+console.log(steril.toString);
+
+let diapazon = {
+	from: 1,
+	to: 5
+}
+
+
+
+let map = new Map();
+
+map.set('name', 'Mary');
+map.set(1, '11');
+map.set(false, [1,2,3]);
+
+console.log(map);
+
+
+// Map -> for ... of + keys(), values(), entries()
+
+// new Map(), size, delete(key), clear(), has(key), set(key, value), get(key)
+
+// new WeakMap()
+
+let a1 = {
+	name: 2
+}
+
+let a2= a1;
+
+a2 = 4;
+a1 = false;
+
+
+//  Set
+
+let set = new Set();
+
+set.add('Santa');
+console.log(set);
+console.log(set.size);
+
+// add(), size(), delete(), clear(), has()
+// for of, forEach
+
+
+
+// Object.defineProperty(obj, prop, {config})
+
+let student = {
+	speciality: 'IT'
+};
+
+Object.defineProperty(student, 'name', {
+	value: 'John Doe', // значение свойства 
+	writable: false, // можно установить новое значение свойства
+	enumerable: true, // можно выводить в цикле for ... in
+	configurable: true // можно повторно вызвать Object.defineProperty
+});
+
+
+
+let superman = {
+	name: 'Clark',
+	lastname: 'Kent',
+	city: 'NY',
+	street: '5th ave',
+	zip: 443567,
+	get address(){
+		return `USA, ${this.zip}, ${this.city}, ${this.street}`
+	},
+	set address(newarraywithadress){
+		this.zip = newarraywithadress[0];
+		this.city = newarraywithadress[1];
+		this.street = newarraywithadress[2];
+	}
+};
+
+console.log(superman.address);
+
+Object.defineProperty(superman, 'fullname', {
+	get(){
+		return this.name + ' ' + this.lastname;
+	},
+	set(newval){
+		[this.name, this.lastname] = newval.split(' ');
+		// this.name = newval.split[0]; this.lastname = newval.split[1]
+	}
+	// ВАЖНО!!! флагa writable у свойств-аксессоров НЕТ
+});
+
+superman.fullname = 'No Name';
+console.log(superman.fullname);
+
+
+let x = ['8', 'art', 'green'];
+let [num, hobby, color] = x;
+
+
+// let [num, hobby, color] = ['8', 'art', 'green'];
+
+
+let family = ['mom', 'dad', 'granny', 'cousin', 'grandfather', 'sister'];
+
+// let [mom, dad, ...rest] = family; // rest = ['granny', 'cousin', 'grandfather', 'sister']
+let [mom, dad, ,, grandfather, sister] = family; // запятые по количеству элементов, которые мы хотим пропустить
+
+
+let colors = {
+	r: 'rgb(255, 0,0)',
+	g: 'rgb(0,255,0)',
+	b: 'rgb(0,0,255)'
+}
+
+let {r, g, b } = colors;
+let {g: green, ...restCol} = colors;
 
 
 
