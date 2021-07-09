@@ -14,178 +14,185 @@
 
 <script>
 
-//  optional chaining with ?.
+// 1) Напишите функцию, которая проверяет, является ли элемент именно простым объектом, а не массивом, null и т.п.
+
+function isObject(smth){
+	let result = false;
+
+	if(smth != null && typeof smth == 'object' && smth.length == undefined){
+		result = true;
+	}
+	console.log(result);
+}
+
+let arr = [];
+let a = 5;
+let o = {};
+let b = null;
+let f = function(){};
+
+isObject(arr);
+isObject(a);
+isObject(b);
+isObject(f);
+isObject(o);
+
+
+// 2)  Напишите функцию, которая возвращает новый объект без указанных значений.
+//   * Ожидаемый результат: ({ a: 1, b: 2 }, 'b') => { a: 1 }
+
+function trim(ob, prop){
+	delete ob[prop];
+	console.log(ob);
+}
+
+
+trim({ a: 1, b: 2 }, 'b');
+
+// 3) Описание задачи: Напишите функцию, которая делает поверхностную проверку объекта на пустоту.
+//   * Ожидаемый результат: ({}) => true,
+//       ({ a: undefined }) => true,
+//       ({ a: 1 }) => false
+//   * Пустые значения: '', null, NaN, undefined
+
+let x = true;
+x = !x;
+x = !x;
+
+function isEmpty(ob){
+	let result = true;
+
+	for(let key in ob){
+		if(ob[key] !== '' && ob[key] !== null && !isNaN(ob[key]) && ob[key] !== undefined){
+			result = false;
+		}
+	}
+	console.log(result);
+}
+
+isEmpty(o);
+isEmpty({a: null});
+isEmpty({a: ''});
+isEmpty({a: NaN});
+isEmpty({a: false});
+
+
+// 4)  Напишите функцию, которая поверхностно сравнивает два объекта.
+//   * Ожидаемый результат: True если объекты идентичны, false если объекты разные ({ a: 1, b: 1 }, { a: 1, b: 1 }) => true
+
+function objEqual(a,b){
+	let result = true;
+
+	let propertiesA = [];
+	let propertiesB = [];
+
+	for(let prop in a){
+		propertiesA.push(a[prop]);
+	}
+	for(let prop in b){
+		propertiesB.push(b[prop]);
+		
+	}
+
+	if(propertiesA.length != propertiesB.length){
+		result = false;
+	}
+	else{	
+		for(let prop in a){
+			if(b[prop] == undefined || a[prop] !== b[prop]){
+				result = false;
+			}
+		}
+	}
+
+	console.log(result);
+}
+
 let user = {
-	name: 'Jane',
-	adress: {
-		city: 'LA',
-		street: '5th av.'
+	name: 'admin'
+}
+
+let admin = {
+	name: 'admin'
+}
+
+let proger = {
+	name: 'admin',
+	age: 20
+}
+
+let hacker = {
+	nick: 'admin',
+	age: 20
+}
+
+objEqual(user, admin);
+objEqual(admin, proger);
+objEqual(hacker, proger);
+
+
+// 5)  6 Напишите функцию, которая вызывает метод массива на заданный путь объекта.
+//  Описание задачи: Напишите функцию, которая вызывает метод массива на заданный путь объекта.
+//   * Ожидаемый результат: ({ a: { b: [1, 2, 3] } }, 'a.b', splice, [1, 2]) => [2, 3]
+// Пример использования: const data = { a: { b: [1, 2, 3] } }
+// console.log(invoke(data, 'a.b', 'splice', [1, 2])); // [2, 3]
+
+
+// 6) Напишите функцию, которая очищает массив от нежелательных значений, таких как false, undefined, пустые строки, ноль, null.
+
+//   * Ожидаемый результат: [0, 1, false, 2, undefined, '', 3, null] => [1, 2, 3]
+
+let arr2 = [0, 1, false, 2, undefined, '', 3, null];
+
+function cleanArr(a){
+	let newA = a.filter((item) => item);
+	console.log(newA);
+}
+
+cleanArr(arr2);
+
+
+
+// 7) Напишите функцию, которая убирает повторяющиеся значения.
+//   * Ожидаемый результат: [1, 2, 3, 1, 2] => [1, 2, 3]
+
+function clearDuplicates(ar){
+	let newA;
+	ar.forEach((item, pos) =>{
+		if(ar.includes(item) && ar.indexOf(item) != pos){
+			newA = ar.splice(item, pos);
+		}
+	});
+	console.log(newA);
+}
+
+clearDuplicates([1, 2, 3, 1, 2]);
+
+// 8) Напишите функцию, которая разделяет массив на части заданного размера.
+//   * Ожидаемый результат: ([1, 2, 3, 4, 5], 2) => [[1, 2], [3, 4], [5]]
+
+function crop(a, size){
+	let parent = [];
+	let child = [];
+
+	for(let i = 0; i < a.length; i++){
+
+		child.push(a[i]); // записываем элемент в дочерний массив не зависимо от итерации
+
+		if(child.length == size){ // если размер дочернего достиг size, пора создавать новый дочерний массив, а старый переместить в родительский
+			parent.push(child);
+			child = [];
+		}
+		if(i == a.length -1){ // если это был последний элемент, то дочерний массив в любом случае перемещаем в родительский
+			parent.push(child);	
+		}
 	}
-}
-
-let admin = null;
-
-console.log(user.adress.city);
-console.log(user.adress.home);
-// console.log(user.parents.home); // cannot read home of undef
-
-console.log(user.parents?.home);
-console.log(admin?.parents?.home);
-
-
-// можно читать и удалять свойства, но нельзя записать
-
-
-
-// Symbols
-
-
-let id = Symbol('id');
-console.log(id);
-
-let id2 = Symbol('id');
-console.log(id2);
-
-console.log(id === id2);
-
-
-let obj = {
-	name: 'Peter',
-	[id]: 94384387439
+	console.log(parent);
 }
 
 
-for(let prop in obj){
-	console.log(`${prop}: ${obj[prop]}`);
-}
-
-console.log(obj[id]);
-
-
-let clone = Object.assign({}, obj);
-let steril =  Object.create(null); // coздали совсем чистый объект без методов и свойств
-
-console.log(clone);
-console.log(clone.toString);
-console.log(steril.toString);
-
-let diapazon = {
-	from: 1,
-	to: 5
-}
-
-
-
-let map = new Map();
-
-map.set('name', 'Mary');
-map.set(1, '11');
-map.set(false, [1,2,3]);
-
-console.log(map);
-
-
-// Map -> for ... of + keys(), values(), entries()
-
-// new Map(), size, delete(key), clear(), has(key), set(key, value), get(key)
-
-// new WeakMap()
-
-let a1 = {
-	name: 2
-}
-
-let a2= a1;
-
-a2 = 4;
-a1 = false;
-
-
-//  Set
-
-let set = new Set();
-
-set.add('Santa');
-console.log(set);
-console.log(set.size);
-
-// add(), size(), delete(), clear(), has()
-// for of, forEach
-
-
-
-// Object.defineProperty(obj, prop, {config})
-
-let student = {
-	speciality: 'IT'
-};
-
-Object.defineProperty(student, 'name', {
-	value: 'John Doe', // значение свойства 
-	writable: false, // можно установить новое значение свойства
-	enumerable: true, // можно выводить в цикле for ... in
-	configurable: true // можно повторно вызвать Object.defineProperty
-});
-
-
-
-let superman = {
-	name: 'Clark',
-	lastname: 'Kent',
-	city: 'NY',
-	street: '5th ave',
-	zip: 443567,
-	get address(){
-		return `USA, ${this.zip}, ${this.city}, ${this.street}`
-	},
-	set address(newarraywithadress){
-		this.zip = newarraywithadress[0];
-		this.city = newarraywithadress[1];
-		this.street = newarraywithadress[2];
-	}
-};
-
-console.log(superman.address);
-
-Object.defineProperty(superman, 'fullname', {
-	get(){
-		return this.name + ' ' + this.lastname;
-	},
-	set(newval){
-		[this.name, this.lastname] = newval.split(' ');
-		// this.name = newval.split[0]; this.lastname = newval.split[1]
-	}
-	// ВАЖНО!!! флагa writable у свойств-аксессоров НЕТ
-});
-
-superman.fullname = 'No Name';
-console.log(superman.fullname);
-
-
-let x = ['8', 'art', 'green'];
-let [num, hobby, color] = x;
-
-
-// let [num, hobby, color] = ['8', 'art', 'green'];
-
-
-let family = ['mom', 'dad', 'granny', 'cousin', 'grandfather', 'sister'];
-
-// let [mom, dad, ...rest] = family; // rest = ['granny', 'cousin', 'grandfather', 'sister']
-let [mom, dad, ,, grandfather, sister] = family; // запятые по количеству элементов, которые мы хотим пропустить
-
-
-let colors = {
-	r: 'rgb(255, 0,0)',
-	g: 'rgb(0,255,0)',
-	b: 'rgb(0,0,255)'
-}
-
-let {r, g, b } = colors;
-let {g: green, ...restCol} = colors;
-
-
-
+crop([1, 2, 3, 4, 5], 2);
+crop([1, 2, 3, 4, 5], 3);
 
 </script>
 </body>
