@@ -18,60 +18,79 @@
 
   <script>
 
-// 1. Дан массив[1, 2, 3].Добавьте ему в конец элементы 4, 5, 6.
-  let arr1 = [1, 2, 3];
-  console.log('Дано: ' + arr1);
-  console.log ('Итог: ' + arr1.push(4, 5, 6));
 
-// 2. Дан массив[1, 2, 3].Добавьте ему в начало элементы 4, 5, 6.
-  let arr2 = [1, 2, 3];
-  console.log('Дано: ' + arr2);
-  console.log('Итог: ' + arr2.unshift(4, 5, 6));
+  class CoffeeMaker {
+    constructor(name, power){
+      this.enabled = false;
+      this.name = name; 
+      this.power = power;
+      this._waterAmount = 0;
 
-// 3. Дан массив['js', 'css', 'jq'].Выведите на экран первый элемент.
-  let arrweb = ['js', 'css', 'jq'];
-  console.log(arrweb[0]);
+    
+    }
+    enable(){
+      this.enabled = true;
+      console.log(`${this.name} with power ${this.power}W is turned on`);
+    }
+    
+    heat(){
+        setTimeout(function () {
+          console.log('Кофеварка нагрелась');
+        }, 100);
+    }
 
-// 4. Дан массив['js', 'css', 'jq'].Выведите на экран последний элемент.
-  let arrweb2 = ['js', 'css', 'jq'];
-  console.log(arrweb2[arrweb2.length - 1]);
+    getPower(){
+        console.log(this.power);
+    }
 
-// 5. Дан массив[1, 2, 3, 4, 5].С помощью метода slice запишите в новый элементы[1, 2, 3].
-  let num = [1, 2, 3, 4, 5];
-  console.log(num.slice(0, 3));
-
-// 6. Дан массив[1, 2, 3, 4, 5].С помощью метода slice запишите в новый элементы[4, 5].
-  let numb = [1, 2, 3, 4, 5];
-  console.log(numb.slice(3));
-
-// 7. Дан массив[1, 2, 3, 4, 5].С помощью метода splice преобразуйте массив в[1, 4, 5].
-  console.log(num.splice(1, 2));
-
-// 8. Используйте метод reduce в комбинации с concat для свёртки массива массивов в один массив, у которого есть все элементы входных массивов.
-  var arrays3 = [[1, 2, 3], [4, 5], [6]];
-  let newarr = arrays3.reduce(function (n, o) {
-    return n.concat(o)
-  });
-  console.log(newarr)
-
-// 9. var arrays = [[1, 2, 3], [4, 5], [6]];
-// // Ваш код
-// // → [1, 2, 3, 4, 5, 6]
-  var arrays = [[1, 2, 3], [4, 5], [6]];
-  console.log(arrays.flat());
-
-// 10. Дан массив[3, 4, 1, 2, 7].Отсортируйте его не используя метод sort.Предпочтительный метод сортировки - пузырьком.                           
-  var arrays2 = [3, 4, 1, 2, 7];
-    for (let i = arrays2.length - 1; i > 0; i--) {
-      for (let j = 0; j < i; j++) {
-        if (arrays2[j] > arrays2[j + 1]) {
-          let arrr = arrays2[j];
-          arrays2[j] = arrays2[j + 1];
-          arrays2[j + 1] = arrr;
+    run(){
+      if (this.enabled) {
+        if (this._waterAmount >= 30) {
+          setTimeout(function () {
+            console.log('Coffee is ready!');
+          }, 1000);
+        }
+        else {
+          console.warn('Не достаточно воды');
         }
       }
     }
-    console.log(arrays2)
+
+    waterAmount(amount){ 
+      let waMAX = 1000;
+      if (amount === undefined) {
+        console.log(this._waterAmount);
+      }
+      else {
+        if (typeof (amount) !== 'number') {
+          console.error('Сыпем гвозди...');
+          return false;
+        }
+        if (amount + this._waterAmount > waMAX) {
+          console.error('Облились!');
+        }
+        else if (amount < 0) {
+          console.error('Эта вода непригодна для полива цветов!');
+        }
+        else {
+          this._waterAmount += amount;
+          console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
+        }
+      }
+    }
+  }
+  
+    let cm = new CoffeeMaker('Saeco', 10, 1000);
+    cm.enable();
+    cm.run();
+    cm.waterAmount(100);
+    cm.waterAmount();
+    cm.waterAmount(-100);
+    cm.waterAmount(1100);
+    cm.waterAmount();
+    cm.waterAmount(350);
+    cm.waterAmount('skldfjdslk');
+    cm.run();
 
   </script>
 </body>
