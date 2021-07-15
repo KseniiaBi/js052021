@@ -39,6 +39,7 @@
       constructor(name, power){
         super(name, power);
         this._waterAmount = 0;
+        this.waMAX = 1000;
       }
       
       heat(){
@@ -65,7 +66,6 @@
       }
 
       waterAmount(amount){ 
-        let waMAX = 1000;
         if (amount === undefined) {
           console.log(this._waterAmount);
         }
@@ -74,7 +74,7 @@
             console.error('Сыпем гвозди...');
             return false;
           }
-          if (amount + this._waterAmount > waMAX) {
+          if (amount + this._waterAmount > this.waMAX) {
             console.error('Облились!');
           }
           else if (amount < 0) {
