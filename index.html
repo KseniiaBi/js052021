@@ -18,68 +18,76 @@
 
   <script>
 
-
-  class CoffeeMaker {
-    constructor(name, power){
-      this.enabled = false;
-      this.name = name; 
-      this.power = power;
-      this._waterAmount = 0;
-
-    
-    }
-    enable(){
-      this.enabled = true;
-      console.log(`${this.name} with power ${this.power}W is turned on`);
-    }
-    
-    heat(){
-        setTimeout(function () {
-          console.log('Кофеварка нагрелась');
-        }, 100);
+    class Machine {
+      constructor(name, power){
+        this.enabled = false;
+        this.name = name;
+        this.power = power;
+        this._waterAmount = 0;
+      }
+      enable(){
+        this.enabled = true;
+        console.log(`${this.name} with power ${this.power}W is turned on`);
+      }
     }
 
-    getPower(){
-        console.log(this.power);
-    }
+    let fridge = new Machine('Samsung', 8);
+    fridge.enable();
 
-    run(){
-      if (this.enabled) {
-        if (this._waterAmount >= 30) {
+
+
+    class CoffeeMaker extends Machine {
+      // constructor(){
+      //    this._waterAmount = 0;
+      // }
+      
+      heat(){
           setTimeout(function () {
-            console.log('Coffee is ready!');
-          }, 1000);
-        }
-        else {
-          console.warn('Не достаточно воды');
-        }
+            console.log('Кофеварка нагрелась');
+          }, 100);
       }
-    }
 
-    waterAmount(amount){ 
-      let waMAX = 1000;
-      if (amount === undefined) {
-        console.log(this._waterAmount);
+      getPower(){
+          console.log(this.power);
       }
-      else {
-        if (typeof (amount) !== 'number') {
-          console.error('Сыпем гвозди...');
-          return false;
+
+      run(){
+        if (this.enabled) {
+          if (this._waterAmount >= 30) {
+            setTimeout(function () {
+              console.log('Coffee is ready!');
+            }, 1000);
+          }
+          else {
+            console.warn('Не достаточно воды');
+          }
         }
-        if (amount + this._waterAmount > waMAX) {
-          console.error('Облились!');
-        }
-        else if (amount < 0) {
-          console.error('Эта вода непригодна для полива цветов!');
+      }
+
+      waterAmount(amount){ 
+        let waMAX = 1000;
+        if (amount === undefined) {
+          console.log(this._waterAmount);
         }
         else {
-          this._waterAmount += amount;
-          console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
+          if (typeof (amount) !== 'number') {
+            console.error('Сыпем гвозди...');
+            return false;
+          }
+          if (amount + this._waterAmount > waMAX) {
+            console.error('Облились!');
+          }
+          else if (amount < 0) {
+            console.error('Эта вода непригодна для полива цветов!');
+          }
+          else {
+            this._waterAmount += amount;
+            console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
+          }
         }
       }
     }
-  }
-  
+    
     let cm = new CoffeeMaker('Saeco', 10, 1000);
     cm.enable();
     cm.run();
