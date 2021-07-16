@@ -14,149 +14,6 @@
 
 <script>
 
-// переадрессацию вызовов функции и привязка контекста
-
-let user = {
-	name: 'JS Developer',
-	hobbys: ['IT', 'Sport'],
-	code(){
-		console.log(`${this.name} is coding`);
-	}
-}
-
-user.code();
-
-
-
-// setTimeout( user.code , 1000); //потеряли this
-
-// setTimeout(function(){
-// 	user.code();
-// }, 1);
-
-
-// CALL -  func.call(context, arg1, arg2, ...)
-
-
-
-let admin = {
-	name: 'John',
-	lastname: 'Doe'
-}
-
-// function showFullName(who){
-// 	console.log(`Hi, my name is ${who.name} ${who.lastname}`);
-// }
-// showFullName(admin);
-
-
-function showFullName(phrase){
-	console.log(`${phrase}, my name is ${this.name} ${this.lastname}`);
-}
-
-showFullName.call(admin, 'Hello');
-
-
-function sum(){
-	// let foreach = [].forEach;
-	// console.log(foreach);
-	let res = 0;
-	// let args = [].slice.call(arguments);
-	// args.forEach(item => res += item);
-
-	res = [].reduce.call(arguments, (total, num) =>total + num)
-
-	console.log(res);
-}
-
-sum(1,2,3,4,5);
-
-let arr = [1,2,9,3,4,5];
-
-console.log(Math.max.apply(null, arr));
-
-
-function pow2(){
-	[].forEach.call(arguments, function(item){
-		console.log(item*item);
-	});
-}
-
-pow2.apply(null, arr);
-
-
-function greeting(phrase, name){
-	console.log(`${phrase}, ${name}`);
-}
-
-greeting.apply(null, ['Salú', user.name]);
-// greeting.apply(['Salú', user.name]); // undefined undefined
-
-
-function greeting2(phrase, sym){
-	console.log(this); // admin
-	console.log(`${phrase}, my name is ${this.name} ${this.lastname} ${sym}`);
-}
-
-
-greeting2.apply(admin, ['Howdy', '!!!!']);
-greeting2.call(admin, 'Howdy', '...........');
-
-
-// у стрелочных функций нет своего this и arguments
-
-let foo = (a,b) => console.log(arguments);
-
-// foo(); // Uncaught ReferenceError: arguments is not defined
-
-
-let boo = (a,b) => console.log(this); // своего нет, пойдет искать на уровень выше
-boo();
-
-
-function showHobbys(){
-	this.hobbys.forEach(item => console.log(`${this.name} likes ${item}`))
-}
-
-// function showHobbys(){
-// 	this.hobbys.forEach(function(item){
-// 	 console.log(`${this.name} likes ${item}`); // this потерялся
-// 	})
-// }
-
-showHobbys.call(user);
-
-
-// ООП 
-// наследование, инкапсуляция, полиморфизм *абстракция
-
-
-let animal ={
-	name: 'Animal',
-	walk(){
-		console.log(`${this.name} is walking`);
-	}
-}
-
-let cat = {
-	name: 'Cat',
-	__proto__: animal,
-	purr: true
-}
-
-for(let prop in cat){
-	console.log(prop);
-}
-
-for(let prop in cat){
-	if(cat.hasOwnProperty(prop)){
-		console.log(prop + ' ' + cat[prop]);
-	}
-}
-
-animal.walk();
-cat.walk();
-
 
 //  функциональное ООП - только функция-конструктор
 
@@ -173,9 +30,6 @@ function Machine(name, power){
 		console.log(`${name} with power ${power}W is turned on`);
 	}
 }
-
-let fridge = new Machine('Samsung', 8);
-fridge.enable();
 
 
 // дочерний класс
@@ -265,93 +119,60 @@ function CoffeeMaker(name, power){ // функция-конструктор
 	}
 }
 
-
-let cm = new CoffeeMaker('Saeco', 10, 1000);
-cm.enable();
-cm.run();
-
-cm.waterAmount(100);
-cm.waterAmount();
-cm.waterAmount(-100);
-cm.waterAmount(1100);
-cm.waterAmount();
-cm.waterAmount(350);
-cm.waterAmount('skldfjdslk');
-cm.run();
-
-
-// прототипный стиль
-
-function Animal(name, weight){
-	this.name = name;
-	this._weight = weight;
-	let color = 'red'; // color is not defined за пределами функции-конструктора
-}
-
-Animal.prototype.run = function(){
-	console.log(`${this.name}  is running`);
-}
-
-
-
-let cow = new Animal('Zorjka', 1000);
-
-function Dog(name){
-	Animal.call(this, name);
-	this.breed = this.breed;
-}
-
-Dog.prototype = cow;
-
-Dog.prototype.bark = function() {
-	console.log('BArking');
-};
-
-let dog = new Dog('Sharik');
-dog.bark();
-
-cow.run();
-dog.run();
-
-
-// ES6 classes
-
-class  TopAnimal {
-	constructor(name){
+class Gadget {
+	constructor(name, power){
+		this.enabled = false;
 		this.name = name;
+		this.power = power;
 	}
 
-	sayHello(){
-		console.log(`Hello, my name is ${this.name}`);
-	}
-
-	eat(){
-		console.log(`${this.name} is eating`);
+	enable(){
+		this.enabled = true;
+		console.log(`${this.name} with power ${this.power}W is turned on`);
 	}
 }
 
-let bunny = new TopAnimal('ZZZ');
-bunny.eat();
-bunny.sayHello();
+class CoffeeMachine extends Gadget {
+	constructor(name, power) {
+	 	super(name, power);
+	 	this._waMAX = 1000;
+	 	this._waterAmount = 0; 
+	 } // мы можем опустить вызов конструктора, если все параметры наследуются 
 
-
-class Rabbit extends TopAnimal { // extend -  расширять (наследовать)
-	constructor(args) {
-		super(args);
-	}
-
-	// methods
-	eat(){
-		super.eat();
-		console.log('Hrum');
+	waterAmount(amount){
+		if(amount === undefined){
+			console.log(this._waterAmount);
+		}
+		else{
+			if(typeof(amount) !== 'number'){
+				// throw new Error('Сыпем гвозди...');
+				console.error('Сыпем гвозди...');
+				return false;
+			}
+			if(amount + this._waterAmount > this._waMAX){
+				console.error('Облились!');
+			}
+			else if(amount < 0){
+				console.error('Эта вода непригодна для полива цветов!');
+			}
+			else{
+				this._waterAmount += amount;
+				console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
+			}
+		}
 	}
 }
 
-let r1 = new Rabbit('Пушистик');
-r1.sayHello();
-r1.eat();
 
+let saeco = new CoffeeMachine('Saeco', 10);
 
+saeco.enable();
+saeco.waterAmount();
+saeco.waterAmount(100);
+saeco.waterAmount();
+saeco.waterAmount('sdsd');
+saeco.waterAmount(1111);
+saeco.waterAmount();
 
 
 </script>
