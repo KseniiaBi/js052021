@@ -4,214 +4,104 @@
 	<title>JS FE</title> 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1"> 
-	<!-- по принципу второго мета-тега пишутся все остальные мета-теги -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&family=Roboto:ital,wght@0,700;1,300;1,400&display=swap" rel="stylesheet">
 
 </head>
 <body>
 
+	<div id="header">header</div>
+	<button onclick="alert('Don`t do this!')">Click me!</button>
+	<article class="news">Hot news!!</article>
+	<section>section1</section>
+	<article class="news">Hot news!!</article>
+	<section>section2</section>
+
 
 <script>
 
-
-//  функциональное ООП - только функция-конструктор
-
-// базовый класс (родительский)
-
-function Machine(name, power){
-	this.enabled = false;
-	this.name = name;
-	this.power = power;
+	// window
+	let currentLocation = window.location.href;
+	console.log(currentLocation);
 
 
-	this.enable = function(){
-		this.enabled = true;
-		console.log(`${name} with power ${power}W is turned on`);
-	}
+//  как сохранять ссылки на DOM элементы
+
+	const header = document.getElementById('header');
+	const btn = document.getElementsByTagName('button')[0];
+	const articles = document.getElementsByClassName('news');
+	const article0 = document.getElementsByClassName('news')[0];
+	const section = document.querySelector('section'); // сюда можно передавать параметром любой валидный селектор, кроме псевдо, например - .news || #header || button div#header
+	const sections = document.querySelectorAll('section');
+
+
+// Tag & Id return HTMLCollection, querySelectorAll returns NodeList
+
+
+//  события - Events
+
+document.onclick = function(event){
+	console.log(event);
 }
 
-
-// дочерний класс
-function CoffeeMaker(name, power){ // функция-конструктор
-	Machine.call(this, name, power);
+let foo = () => console.warn('11111');
 
 
-	//this.enabled = false; // через this пишем public переменные
-	this._waterAmount = 0; // protected variable
-	let waMAX = 1000; // private переменная, как и параметр, указанный при создании и не записанный в свойство с this
+btn.onclick = foo; // если после названия функции поставить (), то функция вызовется только один раз в момент, когда в свойство onclick записывалась ссылка на функцию
 
-	let parentEnable = this.enable; // сохраняем метод this.enable, который доступен из Machine в переменную, чтобы его не потерять при переопределении
-	// parentEnable - просто имя переменной, вы можете выбирать любое
+let boo = () => console.error('44444');
 
-	this.enable = function(){
-		parentEnable(); // вызываем сначала родительский метод, а потом дописываем чем мы его хотим улучшить (можно в другом порядке)
-		this.heat();
-	}
+section.addEventListener('mouseover', boo);
 
-	this.heat = function(){
-		setTimeout(function(){
-			console.log('Кофеварка нагрелась');
-		},100);
-	}
+header.addEventListener('mousemove', function(){
+	console.log('Mouse is moving');
+	section.removeEventListener('mouseover', boo);
+});
+
+header.removeEventListener('mousemove', function(){
+	console.log('Mouse is moving');
+	section.removeEventListener('mouseover', boo);
+}); // не сработает, потому что даже если у нас две идентичные анонимные функции, то как и обьекты они не равны, если не равны их ссылки
 
 
-	this.getPower = function(){
-		console.log(power);
-	}
+// то есть, чтобы работало, нужно записать дальнейшее: 
+// let remover = function(){
+// 	console.log('Mouse is moving');
+// 	section.removeEventListener('mouseover', boo);
+// }
+// header.addEventListener('mousemove', remover);
+// header.removeEventListener('mousemove', remover);
 
-	this.run = function(){
-		if(this.enabled){
-			if(this._waterAmount >= 30){
-				setTimeout(function(){
-					console.log('Coffee is ready!');
-				},1000);
-			}
-			else{
-				console.warn('Не достаточно воды');
-			}
-		}  
-	}
+// при этом у нас по первому же событию mousemove на header сразу же ничего не сработает
 
-	// this.getWaterAmount = function(){
-	// 	return this._waterAmount;
-	// }
-
-	// this.setWaterAmount = function(amount){
-	// 	if(typeof(amount) !== 'number'){
-	// 		// throw new Error('Сыпем гвозди...');
-	// 		console.error('Сыпем гвозди...');
-	// 		return false;
-	// 	}
-	// 	if(amount + this._waterAmount > waMAX){
-	// 		console.error('Облились!');
-	// 	}
-	// 	else if(amount < 0){
-	// 		console.error('Эта вода непригодна для полива цветов!');
-	// 	}
-	// 	else{
-	// 		this._waterAmount += amount;
-	// 		console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
-	// 	}
-	// }
-
-	this.waterAmount = function(amount){ // замена для get + sets
-		if(amount === undefined){
-			console.log(this._waterAmount);
-		}
-		else{
-			if(typeof(amount) !== 'number'){
-				// throw new Error('Сыпем гвозди...');
-				console.error('Сыпем гвозди...');
-				return false;
-			}
-			if(amount + this._waterAmount > waMAX){
-				console.error('Облились!');
-			}
-			else if(amount < 0){
-				console.error('Эта вода непригодна для полива цветов!');
-			}
-			else{
-				this._waterAmount += amount;
-				console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
-			}
-		}
-	}
+let x = function(){
+	console.log('1');
+}
+let y = function(){
+	console.log('1');
 }
 
-class Gadget {
-	constructor(name, power){
-		this.enabled = false;
-		this.name = name;
-		this.power = power;
-	}
+//  x == y -> false
 
-	enable(){
-		this.enabled = true;
-		console.log(`${this.name} with power ${this.power}W is turned on`);
-	}
+let z = function(){
+	alert(2);
 }
 
-class CoffeeMachine extends Gadget {
-	constructor(name, power) {
-	 	super(name, power);
-	 	this._waMAX = 1000;
-	 	this._waterAmount = 0; 
-	 	
-	 } // мы можем опустить вызов конструктора, если все параметры наследуются 
+let v = z;
+//  v == z -> true
 
-	 #waterlimit = 1000;
 
-	waterAmount(amount){
-		if(amount === undefined){
-			console.log(this._waterAmount);
-		}
-		else{
-			if(typeof(amount) !== 'number'){
-				// throw new Error('Сыпем гвозди...');
-				console.error('Сыпем гвозди...');
-				return false;
-			}
-			if(amount + this._waterAmount > this.#waterlimit){
-				console.error('Облились!');
-			}
-			else if(amount < 0){
-				console.error('Эта вода непригодна для полива цветов!');
-			}
-			else{
-				this._waterAmount += amount;
-				console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
-			}
-		}
+// addEventListener + removeEventListener будут работать вместе только если принимают вторым арументом ссылку на функцию, т.е. второй аргумент в обоих функциях == true по принципу сравнений x, y и v, z
+
+
+// делегирование событий
+
+document.addEventListener('click', function(event){
+	if(event.target.classList.contains('news')){
+		console.warn('News Clicked');
 	}
-}
-
-
-let saeco = new CoffeeMachine('Saeco', 10);
-
-saeco.enable();
-
-
-
-
-//  static props and methods
-
-
-class User  {
-
-	static usersNum = 0;
-	static countUsers(){
-  		console.log(User.usersNum);
+	if(event.target.tagName.toLowerCase() == 'button'){
+		console.warn('button clicked');
 	}
-
-
-	constructor(name, age) {
-		this.name = name;
-		this.age = age;
-		User.usersNum++;
-	}
-
-
-	sayHi(){
-		console.log(`Hi! My name is ${this.name}, I am ${this.age} y.o`);
-	}
-}
-
-let pete = new User('Peter', 43);
-pete.sayHi();
-
-let mary = new User('Mary', 22);
-let mary2 = new User('Mary', 22);
-
-User.countUsers();
-
-// pete.#dbdg;
-// User.usersNum
-// User.countUsers()
-
-
-mary instanceof CoffeeMachine; // false
-mary instanceof User; // true
+});
 
 
 
