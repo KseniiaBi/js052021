@@ -137,7 +137,10 @@ class CoffeeMachine extends Gadget {
 	 	super(name, power);
 	 	this._waMAX = 1000;
 	 	this._waterAmount = 0; 
+	 	
 	 } // мы можем опустить вызов конструктора, если все параметры наследуются 
+
+	 #waterlimit = 1000;
 
 	waterAmount(amount){
 		if(amount === undefined){
@@ -149,7 +152,7 @@ class CoffeeMachine extends Gadget {
 				console.error('Сыпем гвозди...');
 				return false;
 			}
-			if(amount + this._waterAmount > this._waMAX){
+			if(amount + this._waterAmount > this.#waterlimit){
 				console.error('Облились!');
 			}
 			else if(amount < 0){
@@ -167,12 +170,49 @@ class CoffeeMachine extends Gadget {
 let saeco = new CoffeeMachine('Saeco', 10);
 
 saeco.enable();
-saeco.waterAmount();
-saeco.waterAmount(100);
-saeco.waterAmount();
-saeco.waterAmount('sdsd');
-saeco.waterAmount(1111);
-saeco.waterAmount();
+
+
+
+
+//  static props and methods
+
+
+class User  {
+
+	static usersNum = 0;
+	static countUsers(){
+  		console.log(User.usersNum);
+	}
+
+
+	constructor(name, age) {
+		this.name = name;
+		this.age = age;
+		User.usersNum++;
+	}
+
+
+	sayHi(){
+		console.log(`Hi! My name is ${this.name}, I am ${this.age} y.o`);
+	}
+}
+
+let pete = new User('Peter', 43);
+pete.sayHi();
+
+let mary = new User('Mary', 22);
+let mary2 = new User('Mary', 22);
+
+User.countUsers();
+
+// pete.#dbdg;
+// User.usersNum
+// User.countUsers()
+
+
+mary instanceof CoffeeMachine; // false
+mary instanceof User; // true
+
 
 
 </script>
