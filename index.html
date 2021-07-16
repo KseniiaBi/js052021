@@ -5,104 +5,107 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1"> 
 
+	<style>
+	*{
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+		header{
+			display: flex;
+			position: relative;
+			justify-content: center; 
+			padding: 20px 30px;
+			background: lightblue;
+			min-height: 58px;
+		}
+
+		#menubtn{
+			width: 30px;
+			height: 30px;
+			border: 1px solid #000;
+			position: absolute;
+			top: 10px;
+			right: 30px;
+		}
+
+		nav{
+			/*здесь ваши стили для навигации */
+			display: none;
+		}
+
+		.openedmenu nav{
+			display: block;
+		}
+
+
+		.box{
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+		}
+
+	</style>
 </head>
 <body>
 
-	<div id="header">header</div>
-	<button onclick="alert('Don`t do this!')">Click me!</button>
-	<article class="news">Hot news!!</article>
-	<section>section1</section>
-	<article class="news">Hot news!!</article>
-	<section>section2</section>
+	<header>
+		<div id="menubtn"></div>
+		<nav>
+			<a href="#">Home</a>
+			<a href="#">Portfolio</a>
+			<a href="#">Blog</a>
+			<a href="#">Contact</a>
+		</nav>
+	</header>
 
+	<div class="box">I have no backgound</div>
 
 <script>
 
-	// window
-	let currentLocation = window.location.href;
-	console.log(currentLocation);
+	const header = document.querySelector('header');
+	const menubtn = document.getElementById('menubtn');
+	const nav = document.querySelector('nav');
+
+	// длинный способ
+	// menubtn.onclick = () => {
+	// 	if(nav.style.display != 'none'){
+	// 		nav.style.display = 'none';
+	// 	}
+	// 	else{
+	// 		nav.style.display = 'block';
+	// 	}
+	// }
+
+	// короткий способ
+	menubtn.onclick = () => header.classList.toggle('openedmenu');
 
 
-//  как сохранять ссылки на DOM элементы
 
-	const header = document.getElementById('header');
-	const btn = document.getElementsByTagName('button')[0];
-	const articles = document.getElementsByClassName('news');
-	const article0 = document.getElementsByClassName('news')[0];
-	const section = document.querySelector('section'); // сюда можно передавать параметром любой валидный селектор, кроме псевдо, например - .news || #header || button div#header
-	const sections = document.querySelectorAll('section');
+let colors = ['limegreen', 'salmon', 'tomato', 'maroon', 'gold'];
+let div = document.getElementsByClassName('box')[0];
 
+function makeBgr(){
+	let counter = 0;
 
-// Tag & Id return HTMLCollection, querySelectorAll returns NodeList
+	return function(){
+		// div.style.background = colors[counter];
+		// div.innerText = `My background is ${colors[counter]}`;
+		// counter = counter < colors.length - 1 ? counter+=1 : 0;
 
-
-//  события - Events
-
-document.onclick = function(event){
-	console.log(event);
-}
-
-let foo = () => console.warn('11111');
-
-
-btn.onclick = foo; // если после названия функции поставить (), то функция вызовется только один раз в момент, когда в свойство onclick записывалась ссылка на функцию
-
-let boo = () => console.error('44444');
-
-section.addEventListener('mouseover', boo);
-
-header.addEventListener('mousemove', function(){
-	console.log('Mouse is moving');
-	section.removeEventListener('mouseover', boo);
-});
-
-header.removeEventListener('mousemove', function(){
-	console.log('Mouse is moving');
-	section.removeEventListener('mouseover', boo);
-}); // не сработает, потому что даже если у нас две идентичные анонимные функции, то как и обьекты они не равны, если не равны их ссылки
-
-
-// то есть, чтобы работало, нужно записать дальнейшее: 
-// let remover = function(){
-// 	console.log('Mouse is moving');
-// 	section.removeEventListener('mouseover', boo);
-// }
-// header.addEventListener('mousemove', remover);
-// header.removeEventListener('mousemove', remover);
-
-// при этом у нас по первому же событию mousemove на header сразу же ничего не сработает
-
-let x = function(){
-	console.log('1');
-}
-let y = function(){
-	console.log('1');
-}
-
-//  x == y -> false
-
-let z = function(){
-	alert(2);
-}
-
-let v = z;
-//  v == z -> true
-
-
-// addEventListener + removeEventListener будут работать вместе только если принимают вторым арументом ссылку на функцию, т.е. второй аргумент в обоих функциях == true по принципу сравнений x, y и v, z
-
-
-// делегирование событий
-
-document.addEventListener('click', function(event){
-	if(event.target.classList.contains('news')){
-		console.warn('News Clicked');
+		let r = Math.floor(Math.random()*255);
+		let g = Math.floor(Math.random()*255);
+		let b = Math.floor(Math.random()*255);
+		let color = `rgb(${r}, ${g}, ${b})`;
+		div.style.background = color;
+		div.innerText = `My background is ${color}`;
 	}
-	if(event.target.tagName.toLowerCase() == 'button'){
-		console.warn('button clicked');
-	}
-});
+}
 
+let painter = makeBgr();
+
+div.onclick = painter;
 
 
 </script>
