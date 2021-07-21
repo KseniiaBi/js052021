@@ -1,95 +1,45 @@
-class Machine {
-    constructor(name, power){
-        this.enabled = true;
-        this.name = name; 
-        this.power = power;
-        
-    }
-    
-    sayHi(){
-        if(this.enabled === true){
-            console.log(`${this.name} with power ${this.power}W is turned on`);
-        }
+const equally = document.getElementById('equally');
+const minus = document.getElementById('minus');
+const plus = document.getElementById('plus');
+const multiplic = document.getElementById('multiplic');
+const devision = document.getElementById('devision');
+const point = document.getElementById('point');
+const three = document.getElementById('three');
+const six = document.getElementById('six');
+const nine = document.getElementById('nine');
+const zero = document.getElementById('zero');
+const two = document.getElementById('two');
+const five = document.getElementById('five');
+const eight = document.getElementById('eight');
+const c = document.getElementById('c');
+const one = document.getElementById('one');
+const four = document.getElementById('four');
+const seven = document.getElementById('seven');
+const input = document.getElementById('input');
+const symbol = document.getElementsByClassName('symbol');
+// const btn = document.querySelector('button');
+// const span = document.querySelector('span');
+
+let arrNumb = [];
+
+
+//как обратиться ко всем span or className
+
+// seven.onclick=()=>{
+//     console.log(input.value);
+// }
+
+function insert(num){
+    input.value = input.value + num;
+}
+
+function clearn(){
+    input.value = '';
+}
+
+function equal(){
+    let res = input.value;
+    if(res){
+        input.value = eval(res);
     }
 }
-let fridge = new Machine('Samsung', 100);
-fridge.sayHi();
-
-
-
-
-class CoffeeMaker extends Machine{
-
-    constructor(name, water, power){
-        super(name, power, water);
-        this._waterAmount = water;
-        this.waMAX = 1000;
-    }
-
-    enable(){
-        super.sayHi();
-        this.heat();
-    }
-
-    heat(){
-        setTimeout(function(){
-            console.log('Кофеварка нагрелась');
-        },500);   
-    }
-    // getPower(){
-    //     console.log(`${this.power}`)
-    // }
-
-    run(){
-        if(this.enable){
-            if(this._waterAmount >= 30){
-                setTimeout(function(){
-                    console.log('Coffee is ready!');
-                },1000);
-            }
-            else{
-                console.warn('Не достаточно воды');
-            }
-        }  
-    }
-
-    waterAmount(amount){
-            if(amount === undefined){
-                console.log(this._waterAmount);
-            }
-            else{
-                if(typeof(amount) !== 'number'){
-                    // throw new Error('Сыпем гвозди...');
-                    console.error('Сыпем гвозди...');
-                    return false;
-                }
-                if(amount + this._waterAmount > this.waMAX){
-                    console.error('Облились!');
-                }
-                else if(amount < 0){
-                    console.error('Эта вода непригодна для полива цветов!');
-                }
-                else{
-                    this._waterAmount += amount;
-                    console.log(`Текущее количество воды - ${this._waterAmount}мл.`);
-                }
-            }
-    }
-}
-let cm = new CoffeeMaker('Saeco', 50, 1000);
-cm.enable();
-// cm.getPower();
-
-cm.waterAmount(100);
-cm.waterAmount();
-cm.waterAmount(-100);
-cm.waterAmount(1100);
-cm.waterAmount();
-cm.waterAmount(350);
-cm.waterAmount('skldfjdslk');
-cm.run();
-
-
-
-
-//сохраняет ли это все? 

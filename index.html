@@ -7,14 +7,98 @@
 	<!-- по принципу второго мета-тега пишутся все остальные мета-теги -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&family=Roboto:ital,wght@0,700;1,300;1,400&display=swap" rel="stylesheet">
-	
+	<link rel="stylesheet" href="css/style.css">
+
 
 </head>
 <body>
 
+
+
+
+
+
+
+
+<div class="wrapeer">
+	
+
+
+	<div class="culcul">
+		<form>
+			<input id="input" type="text" placeholder="0">
+			<div class="disp">
+				<div class="column">
+					<sapn onclick="insert('7')" id="seven" class="symbol">7</sapn>
+					<sapn onclick="insert('4')" id="four" class="symbol">4</sapn>
+					<sapn onclick="insert('1')" id="one" class="symbol">1</sapn>
+					<sapn onclick="clearn()" id="c" class="symbol c">C</sapn>
+				</div>
+				<div class="column">
+					<sapn onclick="insert('8')" id="eight" class="symbol">8</sapn>
+					<sapn onclick="insert('5')" id="five" class="symbol">5</sapn>
+					<sapn onclick="insert('2')" id="two" class="symbol">2</sapn>
+					<sapn onclick="insert('0')" id="zero" class="symbol">0</sapn>
+				</div>
+
+				<div class="column">
+					<sapn onclick="insert('9')" id="nine" class="symbol">9</sapn>
+					<sapn onclick="insert('6')" id="six" class="symbol">6</sapn>
+					<sapn onclick="insert('3')" id="three" class="symbol">3</sapn>
+					<sapn onclick="insert('.')" id="point" class="symbol gray">.</sapn>
+				</div>
+
+				<div class="column">
+					<sapn onclick="insert('/')" id="devision" class="symbol gray" >&#247;</sapn>
+					<sapn onclick="insert('*')" id="multiplic" class="symbol gray">&#215;</sapn>
+					<sapn onclick="insert('+')" id="plus" class="symbol gray">+</sapn>
+					<sapn onclick="insert('-')" id="minus" class="symbol gray">-</sapn>
+				</div>
+
+				<!-- <div class="column">
+					<button id="seven" class="symbol">7</button>
+					<button id="four" class="symbol">4</button>
+					<button id="one" class="symbol">1</button>
+					<button id="c" class="symbol c">C</button>
+				</div>
+
+				<div class="column">
+					<button id="eight" class="symbol">8</button>
+					<button id="five" class="symbol">5</button>
+					<button id="two" class="symbol">2</button>
+					<button id="zero" class="symbol">0</button>
+				</div>
+
+				<div class="column">
+					<button id="nine" class="symbol">9</button>
+					<button id="six" class="symbol">6</button>
+					<button id="three" class="symbol">3</button>
+					<button id="point" class="symbol gray">.</button>
+				</div>
+
+				<div class="column">
+					<button id="devision" class="symbol gray">&#247;</button>
+					<button id="multiplic" class="symbol gray">&#215;</button>
+					<button id="plus" class="symbol gray">+</button>
+					<button id="minus" class="symbol gray">-</button>
+				</div> -->
+			</div>
+			<div class="column ">
+				<span onclick="equal()" id="equally" class="symbol equally">=</span>
+			</div>
+		</form>
+	</div>
+
+
+
+
+
+
 <script src="main.js">
 	
 </script>
+</div>
+
 
 </body>
 </html>
