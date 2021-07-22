@@ -28,80 +28,20 @@ let arrNumb = [];
 
 
 
-one.onclick = clickOne;
-function clickOne(){
-    input.value += one.innerHTML;
+function insert(num){
+    input.value = input.value + num;
+}
+
+function clearn(){
+    input.value = '';
+}
+
+function equal(){
+    let res = input.value;
+    if(res){
+        input.value = eval(res);
+    }
 }
 
 
-two.onclick = clickTwo;
-function clickTwo(){
-    input.value += two.innerHTML;
-}
-
-
-three.onclick = clickThree;
-function clickThree(){
-    input.value += three.innerHTML;
-}
-
-
-four.onclick = clickFour;
-function clickFour(){
-    input.value += four.innerHTML;
-}
-
-
-five.onclick = clickFive;
-function clickFive(){
-    input.value += five.innerHTML;
-}
-
-
-six.onclick = clicSix;
-function clicSix(){
-    input.value += six.innerHTML;
-}
-
-
-seven.onclick = clickSeven;
-function clickSeven(){
-    input.value += seven.innerHTML;
-}
-
-
-eight.onclick = clickEight;
-function clickEight(){
-    input.value += eight.innerHTML;
-}
-
-
-nine.onclick = clickNine;
-function clickNine(){
-    input.value += nine.innerHTML;
-}
-
-
-zero.onclick = clickZero;
-function clickZero(){
-    input.value += zero.innerHTML;
-}
-
-
-c.onclick = () => {
-    input.value = "";
-};
-
-
-point.onclick = clickPoint;
-function clickPoint() {
-    input.value += point.innerHTML;
-}
-
-
-plus.onclick=()=>{
-    input.value = arrNumb.push(input.value);
     
-}
-
-
