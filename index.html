@@ -12,141 +12,163 @@
 		padding: 0;
 	}
 
-	body {
-		padding: 30px;
+	#slider{
+		width: 100%;
+		height: 300px;
+		position: relative;
+	}
+
+	.slide{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		text-align: center;
-		font-size: 18px;
+		font-size: 40px;
+		line-height:  100px;
+		background: lightgray;
+		opacity: 0;
+		transition:  opacity 0.5s ease-in;
 	}
 
-
-	input{
-		width: 300px;
-		height: 40px;
-		outline: none;
-		border: 1px solid #333;
-		margin-bottom: 30px;
-		border-radius: 3px;
+	.slide.active{
+		opacity: 1;
 	}
 
-	button {
-		width: 40px;
-		height: 40px;
-		border-radius: 3px;
-		text-align: center;
-		margin: 10px;
+	.slide:nth-of-type(2){
+		background: hotpink;
 	}
-	.num{
-		background: #e2e2e2;
+	.slide:nth-of-type(3){
+		background: limegreen;
 	}
-
-	.operator{
+	.slide:nth-of-type(4){
 		background: lightblue;
 	}
-
-	.result {
-		background: darkblue;
-		color: #fff; 
+	.slide:nth-of-type(5){
+		background: gold;
 	}
 
-	#calculator{
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: space-between;
-		align-items: flex-start;
-		width: 300px;
+	.navs{
+		position: absolute;
+		text-align: center;
+		width: 100%;
+		bottom: 0;
+		left: 0;
 	}
-	
+
+	.nav {
+		display: inline-block;
+		width: 14px;
+		height: 14px;
+		margin: 10px;
+		border: 2px solid #fff;
+		border-radius: 50%;
+		cursor: pointer;
+	}
+
+	.nav.active {
+		background: #fff;
+	}
+
+	#prev, #next{
+		font-size: 50px;
+		position: absolute;
+		top: 125px;
+		z-index: 10;
+		transform: scaleY(2);
+		color: #fff;
+		cursor: pointer;
+	}
+
+	#next{
+		right: 0;
+	}
 
 	</style>
 </head>
 <body>
 
 
-<div id="calculator">
-	<input type="text" id="in-out">
+<div id="slider">
+	<div class="slide active">Slide 1</div>
+	<div class="slide">Slide 2</div>
+	<div class="slide">Slide 3</div>
+	<div class="slide">Slide 4</div>
+	<div class="slide">Slide 5</div>
 
-	<button class="num">1</button>
-	<button class="num">2</button>
-	<button class="num">3</button>
-	<button class="num">4</button>
-	<button class="num">5</button>
-	<button class="num">6</button>
-	<button class="num">7</button>
-	<button class="num">8</button>
-	<button class="num">9</button>
-	<button class="num">0</button>
+	<ul class="navs">
+		<li data-slide="0" class="nav active"></li>
+		<li data-slide="1" class="nav"></li>
+		<li data-slide="2" class="nav"></li>
+		<li data-slide="3" class="nav"></li>
+		<li data-slide="4" class="nav"></li>
+	</ul>
 
-	<button class="operator" id="sum">+</button>
-	<button class="operator" id="extract">-</button>
-	<button class="operator" id="div">/</button>
-	<button class="operator" id="mul">*</button>
-
-
-	<button class="result" id="eq">=</button>
+	<div id="prev">&lt;</div>
+	<div id="next">&gt;</div>
 </div>
 
 
 <script>
 
-	const input = document.querySelector('#in-out');
-	const calc = document.querySelector('#calculator');
-	let memo = {};
-	let secondNum = false;
 
-	calc.addEventListener('click', function(event){
-		if(event.target.classList.contains('num')){
-			input.value = event.target.innerText;
-			console.log(`secondNum: ${secondNum}, buttonText: ${event.target.innerText}`);
-			if(!secondNum){
-				memo.a = +event.target.innerText;
-			}
-			else{
-				memo.b  = +event.target.innerText;				
-			}
+// autoplay fade-out/fade-in +++
+// dots navigation +++
+//  arrows -> <- +++
 
-			secondNum = !secondNum; // заменит нам в условиях secondNum = true; secondNum = false;
-			
-		}
-		if(event.target.classList.contains('operator')){
-			memo.operator = event.target.id;
-			console.log(event.target.id);
-		}
-		if(event.target.classList.contains('result')){
-			console.log(memo);
-			switch(memo.operator){
-				case 'sum': sum(memo.a, memo.b,);
-							break;
-				case 'extract': extract(memo.a, memo.b);
-							break;
-				case 'div': divide(memo.a, memo.b);
-							break;
-				case 'mul': multiply(memo.a, memo.b);
-							break;
-			}
-		}
-	});
 
-	function sum(a,b){
-		input.value = a+b;
-		memo = {};	
+const slides = document.querySelectorAll('.slide');
+const navs = document.querySelectorAll('.nav');
+const arr_prev = document.getElementById('prev');
+const arr_next = document.getElementById('next');
+
+let currentSlide = 0;
+let interval;
+
+for(let nav of navs){ // перебираем коллекцию точек и на каждую вешаем обработчик кликов
+	nav.onclick = function(){
+		changeSlide(+nav.dataset['slide']); // берет data-slide из li, на который нажали
+	}; 
+	// аналог nav.dataset['slide'] - nav.getAttribute('data-slide');
+}
+
+arr_prev.addEventListener('click', function(){
+	currentSlide = currentSlide > 0 ? --currentSlide : slides.length - 1;
+	changeSlide(currentSlide);
+}); 
+
+arr_next.addEventListener('click', function(){
+	currentSlide = (currentSlide < slides.length - 1) ? ++currentSlide : 0;
+	changeSlide(currentSlide);
+});
+
+// функция, которая автоматически переключает слайды каждые 2 сек
+function autoplay(){
+	interval = setInterval(function(){
+		currentSlide = (currentSlide < slides.length - 1) ? ++currentSlide : 0;
+		changeSlide(currentSlide);
+	}, 2000);
+}
+
+// функция, в которой описана логика переключения слайда и которая привязана к кликам на li и вызывается в setInterval
+function changeSlide(num){
+	for(let i = 0; i < slides.length; i++){
+		slides[i].classList.remove('active');
+		navs[i].classList.remove('active');
 	}
+	currentSlide = num;
+	slides[currentSlide].classList.add('active');
+	navs[currentSlide].classList.add('active');
 
-	function extract(a,b){
-		input.value = a-b;
-		memo = {};	
-	}
+	clearInterval(interval);
+	autoplay();
+}
 
-	function multiply(a,b){
-		input.value = a*b;
-		memo = {};	
-	}
+autoplay();
 
-	function divide(a,b){
-		input.value = a/b;
-		memo = {};	
-	}
 
-	// HW Upgrade:  после вычисления не очищать обьект, а добавить возможность продолжать вычисления
+//   есть две страницы - главная и контакты. на контактах сделать табы на 3 вкладки, на главной есть две ссылки вида <a href="contact.html#tab2"> и она ведет на 2 страницу и показывает нужный таб
 
 </script>
 
