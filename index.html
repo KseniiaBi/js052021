@@ -72,18 +72,18 @@
 
 
 <script>
-	const acc_items = document.querySelectorAll('.acc_item');
+	const acc_items = document.querySelectorAll('.acc_item'); // все элементы с классом acc_item
 
 	document.addEventListener('click', function(event){
-		if(event.target.classList.contains('acc_item_heading')){
-			if(event.target.parentNode.classList.contains('active')){
-				event.target.parentNode.classList.remove('active');
+		if(event.target.classList.contains('acc_item_heading')){ // если мы кликнули по заголовку acc_item_heading
+			if(event.target.parentNode.classList.contains('active')){ // и содержимое под ним показывается, а родитель имеет класс active
+				event.target.parentNode.classList.remove('active'); // мы только скрываем содержимое путем отключения класса active
 			}
-			else{
-				for(let item of acc_items){
+			else{// если содержимое под ним  не показывается, а родитель не имеет класс active
+				for(let item of acc_items){ // мы все элементы аккордеона делаем неактивными
 					item.classList.remove('active');
 				}
-				event.target.parentNode.classList.add('active');
+				event.target.parentNode.classList.add('active');// и включаем только тот, по заголовку которого произошел клик
 			}
 			
 		}
