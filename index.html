@@ -12,77 +12,27 @@
 		padding: 0;
 	}
 
-	#slider{
+	.accordeon{
+		margin: 20px auto;
+		max-width: 500px;
 		width: 100%;
-		height: 300px;
-		position: relative;
+		border: 1px solid #333;
 	}
 
-	.slide{
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		text-align: center;
-		font-size: 40px;
-		line-height:  100px;
-		background: lightgray;
-		opacity: 0;
-		transition:  opacity 0.5s ease-in;
-	}
-
-	.slide.active{
-		opacity: 1;
-	}
-
-	.slide:nth-of-type(2){
-		background: hotpink;
-	}
-	.slide:nth-of-type(3){
-		background: limegreen;
-	}
-	.slide:nth-of-type(4){
-		background: lightblue;
-	}
-	.slide:nth-of-type(5){
-		background: gold;
-	}
-
-	.navs{
-		position: absolute;
-		text-align: center;
-		width: 100%;
-		bottom: 0;
-		left: 0;
-	}
-
-	.nav {
-		display: inline-block;
-		width: 14px;
-		height: 14px;
-		margin: 10px;
-		border: 2px solid #fff;
-		border-radius: 50%;
+	.acc_item_heading{
+		padding: 10px;
 		cursor: pointer;
+		background: #e2e2e2;
+		border-bottom: 1px solid #333;
 	}
 
-	.nav.active {
-		background: #fff;
+	.acc_item_content{
+		padding: 10px;
+		display: none;
 	}
 
-	#prev, #next{
-		font-size: 50px;
-		position: absolute;
-		top: 125px;
-		z-index: 10;
-		transform: scaleY(2);
-		color: #fff;
-		cursor: pointer;
-	}
-
-	#next{
-		right: 0;
+	.active .acc_item_content{
+		display: block;
 	}
 
 	</style>
@@ -90,85 +40,55 @@
 <body>
 
 
-<div id="slider">
-	<div class="slide active">Slide 1</div>
-	<div class="slide">Slide 2</div>
-	<div class="slide">Slide 3</div>
-	<div class="slide">Slide 4</div>
-	<div class="slide">Slide 5</div>
-
-	<ul class="navs">
-		<li data-slide="0" class="nav active"></li>
-		<li data-slide="1" class="nav"></li>
-		<li data-slide="2" class="nav"></li>
-		<li data-slide="3" class="nav"></li>
-		<li data-slide="4" class="nav"></li>
-	</ul>
-
-	<div id="prev">&lt;</div>
-	<div id="next">&gt;</div>
-</div>
+	<div class="accordeon">
+		<div class="acc_item active">
+			<div class="acc_item_heading"> Heading 1</div>
+			<div class="acc_item_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+		</div>
+		<div class="acc_item ">
+			<div class="acc_item_heading"> Heading 2</div>
+			<div class="acc_item_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+		</div>
+		<div class="acc_item ">
+			<div class="acc_item_heading"> Heading 3</div>
+			<div class="acc_item_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+		</div>
+	</div>
 
 
 <script>
+	const acc_items = document.querySelectorAll('.acc_item');
 
+	document.addEventListener('click', function(event){
+		if(event.target.classList.contains('acc_item_heading')){
+			if(event.target.parentNode.classList.contains('active')){
+				event.target.parentNode.classList.remove('active');
+			}
+			else{
+				for(let item of acc_items){
+					item.classList.remove('active');
+				}
+				event.target.parentNode.classList.add('active');
+			}
+			
+		}
+	});
 
-// autoplay fade-out/fade-in +++
-// dots navigation +++
-//  arrows -> <- +++
-
-
-const slides = document.querySelectorAll('.slide');
-const navs = document.querySelectorAll('.nav');
-const arr_prev = document.getElementById('prev');
-const arr_next = document.getElementById('next');
-
-let currentSlide = 0;
-let interval;
-
-for(let nav of navs){ // перебираем коллекцию точек и на каждую вешаем обработчик кликов
-	nav.onclick = function(){
-		changeSlide(+nav.dataset['slide']); // берет data-slide из li, на который нажали
-	}; 
-	// аналог nav.dataset['slide'] - nav.getAttribute('data-slide');
-}
-
-arr_prev.addEventListener('click', function(){
-	currentSlide = currentSlide > 0 ? --currentSlide : slides.length - 1;
-	changeSlide(currentSlide);
-}); 
-
-arr_next.addEventListener('click', function(){
-	currentSlide = (currentSlide < slides.length - 1) ? ++currentSlide : 0;
-	changeSlide(currentSlide);
-});
-
-// функция, которая автоматически переключает слайды каждые 2 сек
-function autoplay(){
-	interval = setInterval(function(){
-		currentSlide = (currentSlide < slides.length - 1) ? ++currentSlide : 0;
-		changeSlide(currentSlide);
-	}, 2000);
-}
-
-// функция, в которой описана логика переключения слайда и которая привязана к кликам на li и вызывается в setInterval
-function changeSlide(num){
-	for(let i = 0; i < slides.length; i++){
-		slides[i].classList.remove('active');
-		navs[i].classList.remove('active');
-	}
-	currentSlide = num;
-	slides[currentSlide].classList.add('active');
-	navs[currentSlide].classList.add('active');
-
-	clearInterval(interval);
-	autoplay();
-}
-
-autoplay();
-
-
-//   есть две страницы - главная и контакты. на контактах сделать табы на 3 вкладки, на главной есть две ссылки вида <a href="contact.html#tab2"> и она ведет на 2 страницу и показывает нужный таб
 
 </script>
 
