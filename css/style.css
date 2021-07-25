@@ -1,61 +1,40 @@
-body{
-	margin: 0;
-	padding: 0;
-	background: #BFE2D0;
-	box-sizing: border-box;
-	font-size: 26px;
-}
+*{
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		padding: 30px;
+		text-align: center;
+		font-size: 18px;
+	}
 
 
-.culcul{
-	text-align: center;
-	padding: 100px;
+ul, li{
+	list-style: none;
 }
-form{
-	display: block;
+.tabs{
+	max-width: 1200px;
 	margin: 0 auto;
-	max-width: 500px;
-	padding: 25px;
-	background-color: #CFCFCF;
-	border: 2px solid #9D9D9D;
-	border-radius: 4px;
 }
-
-input{
+ul{
+	display: flex;
+	justify-content: space-between;
+	padding: 50px;
+}
+.tab-btn{
 	padding: 20px;
-	width: 455px;
-	border: 2px solid #686868;
-	border-radius: 4px;
-	font-size: 20px;
-	outline: none;
-	margin-bottom: 30px;
-}
-.disp{
-	display: flex;
-	justify-content: space-around;
-}
-.column{
-	display: flex;
-	flex-direction: column;
-}
-.symbol{
-	padding: 25px;
-	background-color:#2A2A2A ;
-	margin: 25px 0;
-	border-radius: 10px;
-	color: white;
+	background: lightblue;
+	border-radius: 5px;
 	cursor: pointer;
 }
-
-.equally{
-	background-color: gray;
-	font-size: 30px;
-	font-weight: 900;
-	margin-bottom: 0;
+.tabs .active{
+	display: block;
 }
-.c{
-	background-color: red;
+ul .active{
+	background-color: lightgreen;
 }
-.gray{
-	background-color: gray;
+.tab{
+	display: none;
 }
