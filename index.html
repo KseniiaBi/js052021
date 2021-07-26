@@ -53,36 +53,65 @@
 
 <script>
 
+
+// создающий код
+	let promise = new Promise((resolve, reject) => {
+		// setTimeout(resolve, 500);
+		setTimeout(reject, 1500);
+	});
+
+	// промисы не изменяют свое завершенное состояние - или он завершен успешно, или с ошибкой
+
+// потребляющий - заменяет колбэки
+	promise.then(function(result){
+		console.log(111);
+	}, function(error){
+		// сделайте что-то что поможет разрешить промис удачно
+		console.error('222');
+	});
+
+	// then(f(succ), f(err)) || then(null, f(err)) || then(f(succ))
+	// catch(error)
+	// promise.then().then().then().catch()
+	// finally() - выполняется в любом случае promise.then().catch().finally()
+
+
+	let p = new Promise((resolve, reject) => {
+		confirm('Delete item?') ? resolve() : reject();
+	});
+
+	p.then(
+		result => console.log('item was deleted'),
+		reject => console.warn('item was not deleted')
+	).catch(error => console.warn('Something went wrong'));
+
 	const container = document.querySelector('.content');
 	const url = 'data.json';
 
-// XMLHttpRequest
-	let xhr = new XMLHttpRequest();
-	xhr.open('GET', url); // конфигурируем запрос - open(method, url, async, user, pass)
-	xhr.send(); // отправляем запрос
-	// xhr.abort() - если вы передумали
 
-// events - onreadystatechange, onload, onabort, onprogress
+	let prom = new Promise((resolve, reject) => {
 
-	xhr.onprogress = function(event) { // запускается периодически
-	  // event.loaded - количество загруженных байт
-	  // event.lengthComputable = равно true, если сервер присылает заголовок Content-Length
-	  // event.total - количество байт всего (только если lengthComputable равно true)
-	  console.log(`Загружено ${event.loaded} из ${event.total}`);
-	};
-	xhr.onerror = function(e){
-		console.error('Failed' + e);
-	}
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', url); 
+		xhr.send();
+		xhr.onload = function(){
+			if(xhr.status == 200){
+				resolve(xhr.response);
+			}
+			else{
+				reject(xhr.statusText);
+			}
+		} 
+	});
 
-	xhr.onreadystatechange = function(){
-		console.log(xhr.readyState);
-		if(xhr.readyState == 4){
-			buildLayout(JSON.parse(xhr.response));
-			console.log(xhr.response);
-		}
-	}
 
-	// status - statusText [200 - success, 404 - not found, 403 - forbidden, 501 - internal server error] statusText
+	prom.then(data => {
+		buildLayout(JSON.parse(data));
+		console.log(data);
+	}).catch(error => { // протестировать можно, допустив ошибку в url
+		console.warn(error);
+		container.innerHTML = error;
+	});
 
 
 	function buildLayout(d){
