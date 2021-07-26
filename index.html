@@ -53,65 +53,18 @@
 
 <script>
 
-
-// создающий код
-	let promise = new Promise((resolve, reject) => {
-		// setTimeout(resolve, 500);
-		setTimeout(reject, 1500);
-	});
-
-	// промисы не изменяют свое завершенное состояние - или он завершен успешно, или с ошибкой
-
-// потребляющий - заменяет колбэки
-	promise.then(function(result){
-		console.log(111);
-	}, function(error){
-		// сделайте что-то что поможет разрешить промис удачно
-		console.error('222');
-	});
-
-	// then(f(succ), f(err)) || then(null, f(err)) || then(f(succ))
-	// catch(error)
-	// promise.then().then().then().catch()
-	// finally() - выполняется в любом случае promise.then().catch().finally()
+	let url = 'data.json';
+	let container = document.querySelector('.content');
+	let promise =  fetch(url);
 
 
-	let p = new Promise((resolve, reject) => {
-		confirm('Delete item?') ? resolve() : reject();
-	});
-
-	p.then(
-		result => console.log('item was deleted'),
-		reject => console.warn('item was not deleted')
-	).catch(error => console.warn('Something went wrong'));
-
-	const container = document.querySelector('.content');
-	const url = 'data.json';
-
-
-	let prom = new Promise((resolve, reject) => {
-
-		let xhr = new XMLHttpRequest();
-		xhr.open('GET', url); 
-		xhr.send();
-		xhr.onload = function(){
-			if(xhr.status == 200){
-				resolve(xhr.response);
-			}
-			else{
-				reject(xhr.statusText);
-			}
-		} 
-	});
-
-
-	prom.then(data => {
-		buildLayout(JSON.parse(data));
+	promise.then(response => response.json())
+	.then(data => {
 		console.log(data);
-	}).catch(error => { // протестировать можно, допустив ошибку в url
-		console.warn(error);
-		container.innerHTML = error;
+		buildLayout(data);
 	});
+
+
 
 
 	function buildLayout(d){
