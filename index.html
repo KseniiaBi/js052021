@@ -12,82 +12,106 @@
 		padding: 0;
 	}
 
-	.accordeon{
-		margin: 20px auto;
-		max-width: 500px;
-		width: 100%;
+	canvas {
 		border: 1px solid #333;
-	}
-
-	.acc_item_heading{
-		padding: 10px;
-		cursor: pointer;
-		background: #e2e2e2;
-		border-bottom: 1px solid #333;
-	}
-
-	.acc_item_content{
-		padding: 10px;
-		display: none;
-	}
-
-	.active .acc_item_content{
+		margin: 50px auto;
 		display: block;
 	}
+
+
 
 	</style>
 </head>
 <body>
 
-
-	<div class="accordeon">
-		<div class="acc_item active">
-			<div class="acc_item_heading"> Heading 1</div>
-			<div class="acc_item_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-		</div>
-		<div class="acc_item ">
-			<div class="acc_item_heading"> Heading 2</div>
-			<div class="acc_item_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-		</div>
-		<div class="acc_item ">
-			<div class="acc_item_heading"> Heading 3</div>
-			<div class="acc_item_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-		</div>
-	</div>
-
+	<canvas width="500" height="350" id="game"></canvas>
 
 <script>
-	const acc_items = document.querySelectorAll('.acc_item'); // все элементы с классом acc_item
 
-	document.addEventListener('click', function(event){
-		if(event.target.classList.contains('acc_item_heading')){ // если мы кликнули по заголовку acc_item_heading
-			if(event.target.parentNode.classList.contains('active')){ // и содержимое под ним показывается, а родитель имеет класс active
-				event.target.parentNode.classList.remove('active'); // мы только скрываем содержимое путем отключения класса active
+	let canvas;
+	let ctx;
+	let c_height;
+	let c_width;
+
+	const balls = [];
+	const maxBallsCount = 15;
+	const maxRad = 20;
+	const d_y = 3; // дельта для смещения позиции мяча
+	const d_x = 3; // дельта для смещения позиции мяча
+
+	function init(){
+		canvas = document.querySelector('#game');
+		ctx = canvas.getContext("2d");
+		c_height = canvas.width;
+		c_width = canvas.height;
+	}
+
+	init();
+
+	function createBall(){
+		let rad = Math.floor(Math.random()*maxRad);
+		let red = Math.floor(Math.random()*155 + 100);
+		let green = Math.floor(Math.random()*155 + 100);
+		let blue = Math.floor(Math.random()*155 + 100);
+		let color = `rgb(${red}, ${green}, ${blue})`;
+		let ball = {
+			radius: rad,
+			color: color,
+			ball_x: rad,
+			ball_y: rad,
+			ball_dx: 3,
+			ball_dy: 3
+		};
+		console.log(rad);
+		balls.push(ball);
+
+		drawBall(rad,rad, rad, color);
+	}
+
+	function drawBall(x,y,r,col){
+		ctx.fillStyle = col;
+		ctx.beginPath();
+		ctx.arc(x,y,r, 0, Math.PI*2);
+		ctx.fill();
+	}
+
+	function update(){
+		clearCanvas();
+
+		balls.forEach(ball => {
+		 	drawBall(ball.ball_x, ball.ball_y, ball.radius, ball.color);
+		 	// debugger;
+			if(ball.ball_x + ball.ball_dx >= c_height || ball.ball_x + ball.ball_dx < 0){
+				
+				ball.ball_dx = -ball.ball_dx;
 			}
-			else{// если содержимое под ним  не показывается, а родитель не имеет класс active
-				for(let item of acc_items){ // мы все элементы аккордеона делаем неактивными
-					item.classList.remove('active');
-				}
-				event.target.parentNode.classList.add('active');// и включаем только тот, по заголовку которого произошел клик
+			if(ball.ball_y + ball.ball_dy  >= c_width || ball.ball_y + ball.ball_dy < 0){
+				
+				ball.ball_dy = -ball.ball_dy;
 			}
-			
+
+			ball.ball_x += ball.ball_dx;
+			ball.ball_y += ball.ball_dy;
+
+		});
+	}
+
+	function clearCanvas(){
+		ctx.clearRect(0,0, c_height, c_width);
+	}
+
+
+
+	setInterval(update, 15); // вызываем каждый кадр
+
+	let interval = setInterval(function(){
+		if(balls.length < maxBallsCount){
+			createBall();
 		}
-	});
+		else{
+			clearInterval(interval);
+		}
+	}, 1500);
 
 
 </script>
