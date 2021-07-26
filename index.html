@@ -12,107 +12,91 @@
 		padding: 0;
 	}
 
-	canvas {
-		border: 1px solid #333;
-		margin: 50px auto;
-		display: block;
+	.content{
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
 	}
 
+	.coffee{
+		width: 300px;
+		text-align: center;
+		border: 1px solid #e2e2e2;
+		box-shadow: 2px 2px 0 #e2e2e2;
+		margin: 20px;
+	}
 
+	h3{
+		margin: 30px;
+		font-size: 24px;
+		color: #C3B091; 
+	}
+
+	h2{
+		font-size: 44px;
+		color: tomato; 
+		text-align: right;
+	}
+
+	img{
+		max-width: 90%;
+	}
 
 	</style>
 </head>
 <body>
 
-	<canvas width="500" height="350" id="game"></canvas>
+	<div class="content">
+		
+	</div>
+
 
 <script>
 
-	let canvas;
-	let ctx;
-	let c_height;
-	let c_width;
+	const container = document.querySelector('.content');
+	const url = 'data.json';
 
-	const balls = [];
-	const maxBallsCount = 15;
-	const maxRad = 20;
-	const d_y = 3; // дельта для смещения позиции мяча
-	const d_x = 3; // дельта для смещения позиции мяча
+// XMLHttpRequest
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', url); // конфигурируем запрос - open(method, url, async, user, pass)
+	xhr.send(); // отправляем запрос
+	// xhr.abort() - если вы передумали
 
-	function init(){
-		canvas = document.querySelector('#game');
-		ctx = canvas.getContext("2d");
-		c_height = canvas.width;
-		c_width = canvas.height;
+// events - onreadystatechange, onload, onabort, onprogress
+
+	xhr.onprogress = function(event) { // запускается периодически
+	  // event.loaded - количество загруженных байт
+	  // event.lengthComputable = равно true, если сервер присылает заголовок Content-Length
+	  // event.total - количество байт всего (только если lengthComputable равно true)
+	  console.log(`Загружено ${event.loaded} из ${event.total}`);
+	};
+	xhr.onerror = function(e){
+		console.error('Failed' + e);
 	}
 
-	init();
-
-	function createBall(){
-		let rad = Math.floor(Math.random()*maxRad);
-		let red = Math.floor(Math.random()*155 + 100);
-		let green = Math.floor(Math.random()*155 + 100);
-		let blue = Math.floor(Math.random()*155 + 100);
-		let color = `rgb(${red}, ${green}, ${blue})`;
-		let ball = {
-			radius: rad,
-			color: color,
-			ball_x: rad,
-			ball_y: rad,
-			ball_dx: 3,
-			ball_dy: 3
-		};
-		console.log(rad);
-		balls.push(ball);
-
-		drawBall(rad,rad, rad, color);
+	xhr.onreadystatechange = function(){
+		console.log(xhr.readyState);
+		if(xhr.readyState == 4){
+			buildLayout(JSON.parse(xhr.response));
+			console.log(xhr.response);
+		}
 	}
 
-	function drawBall(x,y,r,col){
-		ctx.fillStyle = col;
-		ctx.beginPath();
-		ctx.arc(x,y,r, 0, Math.PI*2);
-		ctx.fill();
-	}
+	// status - statusText [200 - success, 404 - not found, 403 - forbidden, 501 - internal server error] statusText
 
-	function update(){
-		clearCanvas();
 
-		balls.forEach(ball => {
-		 	drawBall(ball.ball_x, ball.ball_y, ball.radius, ball.color);
-		 	// debugger;
-			if(ball.ball_x + ball.ball_dx >= c_height || ball.ball_x + ball.ball_dx < 0){
-				
-				ball.ball_dx = -ball.ball_dx;
-			}
-			if(ball.ball_y + ball.ball_dy  >= c_width || ball.ball_y + ball.ball_dy < 0){
-				
-				ball.ball_dy = -ball.ball_dy;
-			}
+	function buildLayout(d){
+		d.forEach(item => {
+			let div = document.createElement('div');
+			div.classList.add('coffee');
 
-			ball.ball_x += ball.ball_dx;
-			ball.ball_y += ball.ball_dy;
+			div.innerHTML = `<img src=${item.img} alt="coffee">
+							<h3>${item.name}</h3>
+							<h2>${item.price}</h2>`;
 
+			container.append(div);
 		});
 	}
-
-	function clearCanvas(){
-		ctx.clearRect(0,0, c_height, c_width);
-	}
-
-
-
-	setInterval(update, 15); // вызываем каждый кадр
-
-	let interval = setInterval(function(){
-		if(balls.length < maxBallsCount){
-			createBall();
-		}
-		else{
-			clearInterval(interval);
-		}
-	}, 1500);
-
 
 </script>
 
