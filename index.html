@@ -12,73 +12,62 @@
 		padding: 0;
 	}
 
+
+	body{
+		padding: 30px;
+	}
+
 	.content{
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: space-evenly;
-	}
-
-	.coffee{
-		width: 300px;
-		text-align: center;
 		border: 1px solid #e2e2e2;
-		box-shadow: 2px 2px 0 #e2e2e2;
-		margin: 20px;
+		padding: 20px;
 	}
 
-	h3{
-		margin: 30px;
-		font-size: 24px;
-		color: #C3B091; 
-	}
 
-	h2{
-		font-size: 44px;
-		color: tomato; 
-		text-align: right;
-	}
 
-	img{
-		max-width: 90%;
-	}
 
 	</style>
 </head>
 <body>
 
 	<div class="content">
-		
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
 
+	<button id="menubtn">Menu</button>
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
 
 <script>
 
-	let url = 'data.json';
-	let container = document.querySelector('.content');
-	let promise =  fetch(url);
+	let btn = $('#menubtn');
+	let content = $('.content');
 
-
-	promise.then(response => response.json())
-	.then(data => {
-		console.log(data);
-		buildLayout(data);
+	btn.click(function(){
+		content.css('background', color());
 	});
 
-
-
-
-	function buildLayout(d){
-		d.forEach(item => {
-			let div = document.createElement('div');
-			div.classList.add('coffee');
-
-			div.innerHTML = `<img src=${item.img} alt="coffee">
-							<h3>${item.name}</h3>
-							<h2>${item.price}</h2>`;
-
-			container.append(div);
-		});
+	function generateChannel(){
+		return Math.floor(Math.random()*155+100);
 	}
+
+	function color(){
+		let color = `rgb(${generateChannel()},${generateChannel()},${generateChannel()})`;
+		return color;
+	}
+
+
+	content.click(() =>console.warn(111));
+
 
 </script>
 
