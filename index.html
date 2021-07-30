@@ -83,107 +83,70 @@
 </head>
 <body>
 
-	<div class="carousel">
-		<div class="carousel_wrap">
-			<div class="carousel_item">1</div>
-			<div class="carousel_item">2</div>
-			<div class="carousel_item">3</div>
-			<div class="carousel_item">4</div>
-			<div class="carousel_item">5</div>
-			<div class="carousel_item">6</div>
-			<div class="carousel_item">7</div>
-			<div class="carousel_item">8</div>
-			<div class="carousel_item">9</div>
-			<div class="carousel_item">10</div>
-		</div>
-		<div id="arr_prev">&lt;</div>
-		<div id="arr_next">&gt;</div>
-
-		<ul class="carousel_navs">
-			<li data-item="0" class="control active"></li>
-			<li data-item="1" class="control"></li>
-			<li data-item="2" class="control"></li>
-			<li data-item="3" class="control"></li>
-			<li data-item="4" class="control"></li>
-			<li data-item="5" class="control"></li>
-			<li data-item="6" class="control"></li>
-			<li data-item="7" class="control"></li>
-			<li data-item="8" class="control"></li>
-			<li data-item="9" class="control"></li>
-		</ul>
-	</div>
 
 
 
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+
 
 <script>
 
-	let prevBtn = $('#arr_prev');
-	let nextBtn = $('#arr_next');
-	let wrap = $('.carousel_wrap');
-	let items = $('.carousel_item');
-	let controls = $('.control');
+	// Factory Pattern
 
-	let activeItem = 0;
+	function Sweets(options){
+		this.name = options.name;
+		this.type = options.type;
+		this.weight = 10;
+		this.package = 50;
+		console.log(this);
+	}
 
-	prevBtn.on('click', function() {
-		activeItem = activeItem > 0 ? --activeItem : items.length -1;	
-		prev(1);
-	});
-	nextBtn.on('click', function() {
-		activeItem = activeItem < items.length -1 ? ++activeItem : 0;	
-		next(1);
-	});
+	function Cookies(options){
+		this.name = options.name;
+		this.type = options.type;
+		this.weight = 30;
+		this.package = 20;
+		console.log(this);
+	}
+	function Cakes(options){
+		this.name = options.name;
+		this.type = options.type;
+		this.weight = 1.5;
+		this.package = 1;
+		console.log(this);
+	}
 
-	controls.click(function(event) {
-		let num = +$(event.target).attr('data-item');
-		let delta = num - activeItem ;
-		activeItem = num;
-		if(delta > 0){
-			next(delta);
-		}
-		else{
-			prev(Math.abs(delta));
-		}
-		
-	});
-
-	let targetTransform = items.first().outerWidth(true);
-	console.log(targetTransform);
-
-	function next(n){
-		wrap.animate({
-			left: -targetTransform*n
-		}, 500, function(){
-			for(let i = 0; i < n; i++){
-				wrap.append($('.carousel_item').first());
+	function SweetFactory(){
+		// фабричный метод
+		this.createSweets = function(options ) {
+			if(options.type == 'sweets'){
+				return new Sweets(options);
 			}
-			wrap.css('left', 0);
-			controls.removeClass('active');
-			$(controls[activeItem]).addClass('active');
-
-		});
+			else if(options.type == 'cookies'){
+				return new Cookies(options);
+			}
+			else{
+				return new Cakes(options);
+			}
+		};
 	}
 
-	function prev(n){
-		for(let i = 0; i < n; i++){
-			wrap.prepend($('.carousel_item').last());
-			wrap.css('left', -targetTransform*n);
-		}
-		wrap.animate({
-			left: 0
-		}, 500, function(){});
-		controls.removeClass('active');
-		$(controls[activeItem]).addClass('active');
-	}
+	let factory = new SweetFactory();
 
 
-	
+factory.createSweets({
+	type: 'cookies',
+	name: 'jubilejnoe'
+});
 
+factory.createSweets({
+	type: 'sweets',
+	name: 'caramel'
+});
+
+factory.createSweets({
+	type: 'red velvet',
+	name: 'red velvet'
+});
 
 </script>
 
