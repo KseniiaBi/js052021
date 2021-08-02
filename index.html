@@ -17,136 +17,109 @@
 		padding: 30px;
 	}
 
-	.content{
-		border: 1px solid #e2e2e2;
-		padding: 20px;
+	.skill{
+		display: inline-block;
 	}
-
-
-	.carousel{
-		width: 100%;
-		overflow: hidden;
+	.progressbar{
+		width: 27vw;
+		border: 1px solid black;
+		height: 10px;
+		border-radius: 5px;
 		position: relative;
+		margin-right: 2vw;
+	}
+	.progress{
+		height: 100%;
+		width: 0px;
+		background: green;
 	}
 
-	.carousel_wrap{
-		display: flex;
-		width: auto;
-		position: relative;
-		margin-bottom: 20px;
+	#scroll{
+		height: 2000px;
+		background: yellow;
 	}
 
-	.carousel_item{
-		width: 30vw;
-		height: 100px;
-		margin-right: 20px;
-		background: #e2e2e2;
-		flex: 0 0 auto;
-		text-align: center;
-		line-height: 100px;
-		font-size: 55px;
-	}
-
-	#arr_prev, #arr_next{
+	.count {
 		position: absolute;
-		top: 10px;
-		font-size: 70px;
-		transform: scaleX(0.5);
-		z-index: 10;
-		background: rgba(255, 255, 255, 0.5);
-		cursor: pointer;
+		top: 5px;
+		right: -15px;
+		font-size: 20px;
 	}
- 	#arr_next{
-		right: 0;
- 	}
-
- 	.carousel_navs{
- 		display: flex;
- 		justify-content: center;
- 		padding: 10px;
- 		list-style: none;
- 		margin-top: 20px;
- 	}
- 	.control{
- 		width: 14px;
- 		height: 14px;
- 		border-radius: 50%;
- 		margin: 0 10px;
- 		border: 1px solid lightgreen;
- 		cursor: pointer;
- 	}
- 	.control.active{
- 		background:lightgreen; 
- 	}
 
 	</style>
 </head>
 <body>
 
+	<section id="scroll"></section>
 
 
+	<section id="skills">
+		<h2>My expertise</h2>
+
+		<div class="skill">
+			<h5>HTML</h5>
+			<div class="progressbar">
+				<div data-max="90" class="progress"></div>
+				<span class="count"></span>
+			</div>
+		</div>
+
+		<div class="skill">
+			<h5>CSS</h5>
+			<div class="progressbar">
+				<div data-max="87" class="progress"></div>
+				<span class="count"></span>
+			</div>
+		</div>
+
+		<div class="skill">
+			<h5>Javascript</h5>
+			<div class="progressbar">
+				<div data-max="60" class="progress"></div>
+				<span class="count"></span>
+			</div>
+		</div>
+	</section>
+	<section id="scroll"></section>
 
 
 
 <script>
 
-	// Factory Pattern
+	const targetScroll = document.querySelector('#scroll').offsetHeight;
+	let progressIsAnimated = false;
+	const progressbars = document.querySelectorAll('.progress');
 
-	function Sweets(options){
-		this.name = options.name;
-		this.type = options.type;
-		this.weight = 10;
-		this.package = 50;
-		console.log(this);
-	}
-
-	function Cookies(options){
-		this.name = options.name;
-		this.type = options.type;
-		this.weight = 30;
-		this.package = 20;
-		console.log(this);
-	}
-	function Cakes(options){
-		this.name = options.name;
-		this.type = options.type;
-		this.weight = 1.5;
-		this.package = 1;
-		console.log(this);
-	}
-
-	function SweetFactory(){
-		// фабричный метод
-		this.createSweets = function(options ) {
-			if(options.type == 'sweets'){
-				return new Sweets(options);
+	window.onscroll = () => {
+		if(window.scrollY >= targetScroll && !progressIsAnimated){
+			progressIsAnimated = true;
+			for (let bar of progressbars){
+				animateProgress(bar);
 			}
-			else if(options.type == 'cookies'){
-				return new Cookies(options);
+		}
+	}
+
+	let scroll = document.scrollingElement.offsetTop;
+
+
+
+	function animateProgress(el){
+		let max = +el.dataset['max'];
+		let count = el.parentNode.querySelector('.count');
+		// let delta = max/100;
+		let currentProgress = 0;
+
+		let interval = setInterval(function(){
+			if(currentProgress <= max){
+				currentProgress += 1;
+				count.innerText = currentProgress;
+				el.style.width = currentProgress + '%';
 			}
 			else{
-				return new Cakes(options);
+				clearInterval(interval);
 			}
-		};
+		}, 10);
 	}
-
-	let factory = new SweetFactory();
-
-
-factory.createSweets({
-	type: 'cookies',
-	name: 'jubilejnoe'
-});
-
-factory.createSweets({
-	type: 'sweets',
-	name: 'caramel'
-});
-
-factory.createSweets({
-	type: 'red velvet',
-	name: 'red velvet'
-});
 
 </script>
 
