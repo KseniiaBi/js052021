@@ -4,7 +4,8 @@
 	<title>JS FE</title> 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1"> 
-
+	<style>h1{color:orange}</style>
+	<link rel="stylesheet" type="text/css" href="styles/main.css" media="print" onload="this.media='all'">
 	<style>
 	*{
 		box-sizing: border-box;
@@ -50,7 +51,7 @@
 </head>
 <body>
 
-	<section id="scroll"></section>
+	<h1 id="scroll">dgfgdohkgfpogjdfj</h1>
 
 
 	<section id="skills">
@@ -84,52 +85,10 @@
 
 
 
-<script>
-
-	const targetScroll = document.querySelector('#scroll').offsetHeight;
-	let progressIsAnimated = false;
-	const progressbars = document.querySelectorAll('.progress');
-
-	window.onscroll = () => {
-		if(window.scrollY >= targetScroll && !progressIsAnimated){
-			progressIsAnimated = true;
-			for (let bar of progressbars){
-				animateProgress(bar);
-			}
-		}
-	}
-
-	let scroll = document.scrollingElement.offsetTop;
+<script src="scripts/main.js"></script>
 
 
-
-	function animateProgress(el){
-		let max = +el.dataset['max'];
-		let count = el.parentNode.querySelector('.count');
-		// let delta = max/100;
-		let currentProgress = 0;
-
-		let interval = setInterval(function(){
-			if(currentProgress <= max){
-				currentProgress += 1;
-				count.innerText = currentProgress;
-				el.style.width = currentProgress + '%';
-			}
-			else{
-				clearInterval(interval);
-			}
-		}, 10);
-	}
-
-
-	let fig = {
-		a: [[1,1,1], [2,2,2], [3,3,3]]
-	}
-
-	fig['a'].forEach(item => item.forEach(child=>console.log(child)));
-
-
-</script>
+<noscript><link rel="stylesheet" type="text/css" href="styles/main.css"></noscript>
 
 </body>
 </html>

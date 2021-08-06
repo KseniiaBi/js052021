@@ -1,0 +1,22 @@
+h1 {
+  color: orange;
+}
+
+h4 {
+  color: red;
+}
+
+@font-face {
+  font-family: "Moloko";
+  src: url("fonts/Moloko.eot");
+  src: url("fonts/Moloko.eot?#iefix") format("embedded-opentype"), url("fonts/Moloko.woff") format("woff"), url("fonts/Moloko.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+h1, h2 {
+  font-family: "Moloko";
+}
+
+div {
+  border: 1px solid green;
+}
