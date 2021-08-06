@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1"> 
 
-	<style>
+<style>
 	*{
 		box-sizing: border-box;
 		margin: 0;
@@ -46,7 +46,7 @@
 		font-size: 20px;
 	}
 
-	</style>
+</style>
 </head>
 <body>
 
@@ -86,47 +86,128 @@
 
 <script>
 
-	const targetScroll = document.querySelector('#scroll').offsetHeight;
-	let progressIsAnimated = false;
-	const progressbars = document.querySelectorAll('.progress');
+	let sum = (a,b) => a+b; // returns value if fn is one-line
+	console.log(sum(3,4)); // 7 вместо undefined
+	// не всплывает, !this, !arguments
 
-	window.onscroll = () => {
-		if(window.scrollY >= targetScroll && !progressIsAnimated){
-			progressIsAnimated = true;
-			for (let bar of progressbars){
-				animateProgress(bar);
-			}
+	foo();
+
+	function foo(){
+		console.log('f00');
+	}
+
+	let arr = [1,2,3];
+	arr.forEach(item => console.log(item));
+
+
+	// closures
+
+	// краткая идея - функция в момент ее вызова записывает в обьект своего лексического окружения внешние и внутренние переменные
+
+	let name = 'Ann';
+
+	function sayHi(){
+		console.log(`Hello, ${name}`);
+	}
+
+	sayHi();
+	name = 'Jane';
+	sayHi();
+
+	function count(){
+		let count = 0;
+
+		return function (){
+			console.log(++count);
 		}
 	}
 
-	let scroll = document.scrollingElement.offsetTop;
+	let counter = count();
+	counter();
+	counter();
+	counter();
 
 
+	// Map, Set - коллекции
 
-	function animateProgress(el){
-		let max = +el.dataset['max'];
-		let count = el.parentNode.querySelector('.count');
-		// let delta = max/100;
-		let currentProgress = 0;
-
-		let interval = setInterval(function(){
-			if(currentProgress <= max){
-				currentProgress += 1;
-				count.innerText = currentProgress;
-				el.style.width = currentProgress + '%';
-			}
-			else{
-				clearInterval(interval);
-			}
-		}, 10);
+	let o = {
+		name: 'John',
+		age: 30
+	}
+	let o1 = {
+		name: 'Jane',
+		age: 30
+	}
+	let o2 = {
+		name: 'Jimmy',
+		age: 30
 	}
 
+	let dictionary = new Map();
 
-	let fig = {
-		a: [[1,1,1], [2,2,2], [3,3,3]]
+	dictionary.set('name', 'Ann');
+
+	// Set - уникальная коллекция
+
+	let coll = new Set();
+	coll.add(o);
+	coll.add(o1);
+	coll.add(o2);
+	coll.add(o);
+	coll.add(o);
+
+	console.log(coll);
+
+
+	// call(context, params)/apply(context, [params])
+	// их задача - зафиксировать контекст выполнения функции  разница между ними только в том, в каком виде они принимают аргументы
+
+
+	let user = {
+		name: 'user',
+		sayHello(){
+			console.log(`Hello, ${this.name}`);
+		}
 	}
 
-	fig['a'].forEach(item => item.forEach(child=>console.log(child)));
+	user.sayHello();
+	//setTimeout(user.sayHello, 100); // контекст утерян
+	//setTimeout(()=> user.sayHello(), 200); // контекст зафиксировали замыканием
+	setTimeout(user.sayHello.call(user), 300); // контекст зафиксирован с помощью call()
+
+
+	function sum2(){
+		let result = 0;
+		for (let num of arguments){
+			result += num;
+		}
+		console.log(result);
+	}
+
+	sum2(1,2,3,4,5,6);
+
+	sum2.apply(null, arr);
+
+
+	// get/set
+
+	let admin = {
+		name: 'admin',
+		lastname: 'main'
+	}
+
+	Object.defineProperty(admin, 'fullname', {
+		get(){
+			return this.name + " " + this.lastname;
+		},
+		set(newname){
+			[this.name, this.lastname] = newname.split(' ');
+		}
+	});
+
+	console.log(admin.fullname);
+	admin.fullname = 'User Stranger';
+	console.log(admin.fullname);
 
 
 </script>
