@@ -14,16 +14,16 @@ class Game extends React.Component {
   handleTurn(id){
     if(this.state.squares[id] === ''){
       let copy = this.state.squares.slice();
-        let data = this.state.isXturn ? 'X' : 'O';
-        copy[id] = data;
+      let data = this.state.isXturn ? 'X' : 'O';
+      copy[id] = data;
 
-        let gameover = this.checkWin(copy);
+      let gameover = this.checkWin(copy);
 
-        this.setState({
-          squares: copy,
-          isXturn: !this.state.isXturn,
-          isGameOver: gameover
-        });
+      this.setState({
+        squares: copy,
+        isXturn: !this.state.isXturn,
+        isGameOver: gameover
+      });
     }
   }
 
