@@ -37,15 +37,35 @@
   }
 }
 
+*{
+  box-sizing: border-box;
+}
 
+.game {
+  text-align: center;
+  margin: 100px auto;
+}
 
-.cake{
-  width: 100%;
-  max-width: 300px;
-  padding: 30px;
+.board{
+  display: inline-flex;
+  flex-flow: row wrap;
+  width: 300px;
+  height: 300px;
+  margin-top: 50px;
+}
+
+.square{
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  cursor: pointer;
+  font-size: 70px;
+  line-height: 100px;
   text-align: center;
 }
 
-.cake img{
-  width: 100%;
+.square:hover{
+  background: rgba(0, 255, 0, 0.1);
 }
+
+

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Clock from './App';
+import Game from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Clock />
+    <Game />
   </React.StrictMode>,
   document.getElementById('root')
 );
