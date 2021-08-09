@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.cake{
+  width: 100%;
+  max-width: 300px;
+  padding: 30px;
+  text-align: center;
+}
+
+.cake img{
+  width: 100%;
+}
