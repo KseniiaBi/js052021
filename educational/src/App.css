@@ -39,33 +39,87 @@
 
 *{
   box-sizing: border-box;
+  margin: 0; 
+  padding: 0;
 }
 
-.game {
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+
+header, footer{
+  display: flex;
+  justify-content: center;
+  flex-grow: 0;
+  background: #000;
+  color: #fff;
+  padding: 20px 30px;
+}
+
+ul{
+  list-style: none;
   text-align: center;
-  margin: 100px auto;
+}
+.nav li{
+  display: inline-block;
 }
 
-.board{
-  display: inline-flex;
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  margin: 0 30px;
+}
+
+.content{
+  flex: 1 0 auto;
+}
+
+.shop{
+  display: flex;
   flex-flow: row wrap;
-  width: 300px;
-  height: 300px;
-  margin-top: 50px;
+  justify-content: space-evenly;
 }
 
-.square{
-  width: 100px;
-  height: 100px;
-  border: 1px solid black;
-  cursor: pointer;
-  font-size: 70px;
-  line-height: 100px;
+.cake{
+  max-width: 300px;
+}
+
+h1{
+  width: 100%;
+  margin: 30px;
+}
+
+.cake img{
+  width: 100%;
+  max-height: 300px;
+  width: auto;
   text-align: center;
 }
 
-.square:hover{
-  background: rgba(0, 255, 0, 0.1);
+.cart{
+  padding: 20px 30px;
 }
 
+.cartItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
 
+.cartItem img{
+  height: 50px;
+}
+
+.cartTotal{
+  width: 100%;
+  text-align: right;
+  font-weight: bold;
+}

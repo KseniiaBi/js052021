@@ -1,71 +1,186 @@
 import './App.css';
-import React from 'react';
+import React, {Component} from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
 
-class Game extends React.Component {
+} from "react-router-dom";
+
+
+class App extends Component {
   constructor(props){
-    super(props);
-    this.state = {
-      squares: ['', '', '', '', '', '', '', '', ''],
-      isXturn: true,
-      isGameOver: false
-    }
+   super(props); 
+   this.state = {
+    cart: {
+      items: [],
+      total: 0
+    },
+    cakes: [
+      {
+        'img': 'https://www.nicepng.com/png/detail/255-2556817_elegant-images-of-birthday-cakes-png-cake-png.png',
+        'price': 19,
+        'name': 'Sponge Cake'
+      },
+      {
+        'img': 'https://toppng.com/uploads/preview/birthday-cake-png-11546508047ge7qulhxmc.png',
+        'price': 29,
+        'name': 'Cheesecake'
+      },
+      {
+        'img': 'https://toppng.com/uploads/preview/happy-birthday-cake-png-png-transparent-birthday-cakes-11562879324inogs2uf8a.png',
+        'price': 24,
+        'name': 'Red Velvet'
+      }
+    ]
+   };
+
+   this.buyCake = this.buyCake.bind(this);
   }
 
-  handleTurn(id){
-    if(this.state.squares[id] === ''){
-      let copy = this.state.squares.slice();
-      let data = this.state.isXturn ? 'X' : 'O';
-      copy[id] = data;
+  buyCake(n){
+    let cartCopy = this.state.cart.items.slice();
+    let cakes = this.state.cakes.slice();
+    let cartTotal = this.state.cart.total;
+    let wasAlreadyInCart = false;
 
-      let gameover = this.checkWin(copy);
+    cartCopy.forEach( inCart => {
+      if(inCart.name === n){
+        wasAlreadyInCart = true;
+        inCart.count +=1;
+        cartTotal += inCart.price;
+      }
+    });
 
-      this.setState({
-        squares: copy,
-        isXturn: !this.state.isXturn,
-        isGameOver: gameover
+    if(!wasAlreadyInCart){
+      let bought = {};
+      cakes.forEach(cake => {
+        if(cake.name === n){
+          bought = {
+            img: cake.img,
+            name: cake.name,
+            price: cake.price,
+            count: 1
+          }
+
+          cartCopy.push(bought);
+          cartTotal += cake.price;
+        }
       });
     }
-  }
 
-  checkWin(arr){
-    let isGameOver = false;
-    let squares = arr;
-    if(squares[0] === squares[1] && squares[1] === squares[2] ||
-        squares[3] === squares[4] && squares[4] === squares[5] ||
-        squares[6] === squares[7] && squares[7] === squares[8] ||
-        squares[0] === squares[3] && squares[3] === squares[6] ||
-        squares[1] === squares[4] && squares[4] === squares[7] ||
-        squares[2] === squares[5] && squares[5] === squares[8] ||
-        squares[0] === squares[4] && squares[4] === squares[8]
-        ){
-      isGameOver = true;
-    }
-    return isGameOver;
+    this.setState({
+      cakes: cakes,
+      cart: {
+        items: cartCopy,
+        total: cartTotal
+      }
+    });
   }
 
   render(){
     return(
-      <div className="game">
-        <h1>Tic Tac Toe</h1>
-        {
-          this.state.isGameOver ? <h2>Winner is {this.state.isXturn ? 'O' : 'X'}</h2> : null
-        }
-        <div className="info">Current player: {this.state.isXturn ? 'X' : 'O'} </div>
-        
-        <div className="board">
-          {
-            this.state.squares.map((square,index) =>  <Square key={index} click={() => this.handleTurn(index)} data={square} />)
-          }
-        </div>
+     <Router>
+      <div className="app">
+        <header>
+          <ul className="nav">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/catalog">Catalog</Link>
+              </li>
+              <li>
+                <Link to="/cart">Cart</Link>
+              </li>
+            </ul>
 
+            <span className="cartInfo">{this.state.cart.items.length} goods, ${this.state.cart.total}</span>
+          </header>
+
+          
+
+            {/* A <Switch> looks through its children <Route>s and
+                renders the first one that matches the current URL. */}
+            <Switch>
+              <Route path="/catalog">
+                <Catalog clicked={this.buyCake} cakes={this.state.cakes} />
+              </Route>
+              <Route path="/cart">
+                <Cart cart={this.state.cart} />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+
+        <footer>&copy; JS Course 05.2021</footer>
       </div>
-      );
+    </Router>
+    );
   }
-};
+}
 
-const Square = (props) => <div onClick={props.click} className="square">{props.data}</div>
+function Catalog(props){
+  return(
+    <div className="content shop">
+      <h1>Shop</h1>
+      {
+        props.cakes.map((item,index) => <Cake key={index} click={props.clicked} src={item.img} name={item.name} price={item.price} />)
+      }
+    </div>
+   );
+}
 
-export default Game;
+function Cake(props){
+  return(
+    <div className="cake" data-id={props.name}>
+      <img src={props.src} alt="cake" loading="lazy" />
+      <h4>{props.name}</h4>
+      <h2>{props.price}</h2>
 
-//Game
-// Square
+      <button onClick={() => props.click(props.name)}>Buy</button>
+    </div>
+  );
+}
+
+function Cart(props){
+   return (
+    <div className="content cart">
+     <h1>Cart</h1>
+     {
+      props.cart.items.length > 0 ?
+
+        props.cart.items.map((item, index) => <CartItem key={index} data={item} />)
+
+        : null
+
+     }
+     <div className="cartTotal">{props.cart.total}USD</div>
+    </div>
+    );
+}
+
+function CartItem(props){
+  return(
+    <div className="cartItem">
+      <img src={props.data.img} alt="cake" />
+      <h5>{props.data.name}</h5>
+      <span className="count">{props.data.count}</span>
+      <span className="price">${props.data.price}, </span>
+      <span className="totalSum">${props.data.count * props.data.price}</span>
+
+    </div>
+    );
+}
+
+function Home() {
+  return (
+    <div className="content home">
+     <h1>Home</h1>
+    </div>
+    );
+}
+
+export default App;

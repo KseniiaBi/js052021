@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Game from './App';
+import App from './App';
+import { BrowserRouter as Router } from "react-router-dom";
+import {createBrowserHistory} from 'history';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Game />
-  </React.StrictMode>,
+       <App />,
   document.getElementById('root')
 );
 
